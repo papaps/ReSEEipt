@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.adrian.reseeipt.UtilityConstants.DatabaseConstants;
+import com.adrian.reseeipt.Constants.DatabaseConstants;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 

@@ -1,4 +1,4 @@
-package com.adrian.reseeipt.UtilityConstants;
+package com.adrian.reseeipt.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

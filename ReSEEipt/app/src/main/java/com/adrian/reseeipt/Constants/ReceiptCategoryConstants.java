@@ -1,4 +1,4 @@
-package com.adrian.reseeipt.UtilityConstants;
+package com.adrian.reseeipt.Constants;
 
 public class ReceiptCategoryConstants {
     public static final String GROCERIES = "Groceries";
