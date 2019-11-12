@@ -23,6 +23,7 @@ public class DatabaseConstants {
     public static final String RECEIPT_KEY_NOTES = "notes";
     public static final String RECEIPT_KEY_CATEGORY = "category";
     public static final String RECEIPT_KEY_DATE = "date";
+    public static final String RECEIPT_DATE_ISO_FORMAT = "YYYY-MM-DD HH:MM:SS.SSS";
 
     //Receipt images table constants
     public static final String IMAGES_TABLE_NAME = "receipt_images";
