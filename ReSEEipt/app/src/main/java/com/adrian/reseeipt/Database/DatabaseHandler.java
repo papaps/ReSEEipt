@@ -34,11 +34,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create the receipts table
         String CREATE_RECEIPT_TABLE = "CREATE TABLE " + DatabaseConstants.RECEIPTS_TABLE_NAME +
                 "(" +
-                DatabaseConstants.RECEIPT_KEY_ID + " INTEGER PRIMARY KEY, " +
-                DatabaseConstants.RECEIPT_KEY_TITLE + " TEXT NOT NULL, " +
-                DatabaseConstants.RECEIPT_KEY_NOTES+ " TEXT NOT NULL, " +
-                DatabaseConstants.RECEIPT_KEY_CATEGORY + " TEXT NOT NULL, " +
-                DatabaseConstants.RECEIPT_KEY_DATE + " TEXT NOT NULL " +
+                DatabaseConstants.RECEIPTS_KEY_ID + " INTEGER PRIMARY KEY, " +
+                DatabaseConstants.RECEIPTS_KEY_TITLE + " TEXT NOT NULL, " +
+                DatabaseConstants.RECEIPTS_KEY_NOTES+ " TEXT NOT NULL, " +
+                DatabaseConstants.RECEIPTS_KEY_CATEGORY + " TEXT NOT NULL, " +
+                DatabaseConstants.RECEIPTS_KEY_DATE + " TEXT NOT NULL " +
                 ")";
         db.execSQL(CREATE_RECEIPT_TABLE);
 
@@ -56,7 +56,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String DROP_TABLE = String.valueOf("DROP TABLE IF EXISTS");
-        db.execSQL(DROP_TABLE, new String[]{DatabaseConstants.DATABASE_NAME});
+        db.execSQL(DROP_TABLE, new String[]{DatabaseConstants.USERS_TABLE_NAME});
+        db.execSQL(DROP_TABLE, new String[]{DatabaseConstants.RECEIPTS_TABLE_NAME});
+        db.execSQL(DROP_TABLE, new String[]{DatabaseConstants.IMAGES_TABLE_NAME});
 
         onCreate(db);
     }

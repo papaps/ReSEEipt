@@ -18,11 +18,11 @@ public class DatabaseConstants {
 
     //Receipts table constants
     public static final String RECEIPTS_TABLE_NAME = "receipts";
-    public static final String RECEIPT_KEY_ID = "receipt_id";
-    public static final String RECEIPT_KEY_TITLE = "title";
-    public static final String RECEIPT_KEY_NOTES = "notes";
-    public static final String RECEIPT_KEY_CATEGORY = "category";
-    public static final String RECEIPT_KEY_DATE = "date";
+    public static final String RECEIPTS_KEY_ID = "receipt_id";
+    public static final String RECEIPTS_KEY_TITLE = "title";
+    public static final String RECEIPTS_KEY_NOTES = "notes";
+    public static final String RECEIPTS_KEY_CATEGORY = "category";
+    public static final String RECEIPTS_KEY_DATE = "date";
     public static final String RECEIPT_DATE_ISO_FORMAT = "YYYY-MM-DD HH:MM:SS.SSS";
 
     //Receipt images table constants
