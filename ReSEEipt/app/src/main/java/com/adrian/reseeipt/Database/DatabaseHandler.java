@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.adrian.reseeipt.Constants.DatabaseConstants;
+import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -142,9 +143,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO Edit User
-
     // TODO Add Receipt
+    public void addReceipt(Receipt receipt){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstants.RECEIPTS_KEY_TITLE, receipt.getTitle());
+        values.put(DatabaseConstants.RECEIPTS_KEY_NOTES, receipt.getNotes());
+        values.put(DatabaseConstants.RECEIPTS_KEY_CATEGORY, receipt.getCategories());
+        values.put(DatabaseConstants.RECEIPTS_KEY_DATE, receipt.getDateAdded());
+        // Insert to row
+        db.insert(DatabaseConstants.RECEIPTS_TABLE_NAME, null, values);
+        db.close();
+    }
 
     // TODO Delete Receipt
 
