@@ -84,22 +84,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // TODO Get User
     public User getUser(int user_id){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(Util.TABLE_NAME,
-//                new String[]{Util.KEY_ID, Util.KEY_NAME,Util.KEY_PHONE_NUMBER},
-//                Util.KEY_ID + "=?", new String[]{String.valueOf(id)},
-//                null, null, null);
-//
-//        if (cursor != null){
-//            cursor.moveToFirst();
-//        }
-//
-//        Contact contact = new Contact();
-//        contact.setId(Integer.parseInt(cursor.getString(0)));
-//        contact.setName(cursor.getString(1));
-//        contact.setPhoneNumber(cursor.getString(2));
-//
-//        return contact;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(DatabaseConstants.USERS_TABLE_NAME,
                 new String[]{ // get all fields
@@ -132,6 +116,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // TODO Delete User
+    //Delete the single existing user
+    public void deleteUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(DatabaseConstants.USERS_TABLE_NAME, DatabaseConstants.USERS_KEY_ID + "=?",
+                new String[]{String.valueOf(user.getUserID())});
+
+        db.close();
+    }
 
     // TODO Edit User
 
