@@ -66,7 +66,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // TODO Add User
     public void addUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -82,7 +81,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO Get User
     public User getUser(int user_id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(DatabaseConstants.USERS_TABLE_NAME,
@@ -115,7 +113,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    // TODO Delete User
+    //Update the single existing user
+    public int updateUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstants.USERS_KEY_FIRST, user.getFirstName());
+        values.put(DatabaseConstants.USERS_KEY_LAST, user.getLastName());
+        values.put(DatabaseConstants.USERS_KEY_PASSWORD, user.getPassword());
+        values.put(DatabaseConstants.USERS_KEY_Q1, user.getQuestion1());
+        values.put(DatabaseConstants.USERS_KEY_ANS1, user.getAnswer1());
+        values.put(DatabaseConstants.USERS_KEY_Q2, user.getQuestion2());
+        values.put(DatabaseConstants.USERS_KEY_ANS2, user.getAnswer2());
+
+        //update the row
+        //update(tablename, values, where id = 43)
+        return db.update(DatabaseConstants.USERS_TABLE_NAME, values, DatabaseConstants.USERS_KEY_ID + "=?",
+                new String[]{String.valueOf(user.getUserID())});
+    }
+
     //Delete the single existing user
     public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
