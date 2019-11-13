@@ -1,10 +1,12 @@
 package com.adrian.reseeipt.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.adrian.reseeipt.Constants.DatabaseConstants;
+import com.adrian.reseeipt.Model.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -64,6 +66,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // TODO Add User
+    public void addUser(User user){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(Util.KEY_NAME, contact.getName());
+//        values.put(Util.KEY_PHONE_NUMBER, contact.getPhoneNumber());
+//
+//        // Insert to row
+//        db.insert(Util.TABLE_NAME, null, values);
+//        db.close();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstants.USERS_KEY_FIRST, user.getFirstName());
+        values.put(DatabaseConstants.USERS_KEY_LAST, user.getLastName());
+        values.put(DatabaseConstants.USERS_KEY_PASSWORD, user.getPassword());
+        values.put(DatabaseConstants.USERS_KEY_Q1, user.getQuestion1());
+        values.put(DatabaseConstants.USERS_KEY_ANS1, user.getAnswer1());
+        values.put(DatabaseConstants.USERS_KEY_Q2, user.getQuestion2());
+        values.put(DatabaseConstants.USERS_KEY_ANS2, user.getAnswer2());
+        // Insert to row
+        db.insert(DatabaseConstants.USERS_TABLE_NAME, null, values);
+        db.close();
+    }
 
     // TODO Get User
 
