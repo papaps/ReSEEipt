@@ -2,6 +2,7 @@ package com.adrian.reseeipt.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -67,16 +68,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // TODO Add User
     public void addUser(User user){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(Util.KEY_NAME, contact.getName());
-//        values.put(Util.KEY_PHONE_NUMBER, contact.getPhoneNumber());
-//
-//        // Insert to row
-//        db.insert(Util.TABLE_NAME, null, values);
-//        db.close();
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.USERS_KEY_FIRST, user.getFirstName());
@@ -92,6 +83,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // TODO Get User
+    public User getUser(int user_id){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.query(Util.TABLE_NAME,
+//                new String[]{Util.KEY_ID, Util.KEY_NAME,Util.KEY_PHONE_NUMBER},
+//                Util.KEY_ID + "=?", new String[]{String.valueOf(id)},
+//                null, null, null);
+//
+//        if (cursor != null){
+//            cursor.moveToFirst();
+//        }
+//
+//        Contact contact = new Contact();
+//        contact.setId(Integer.parseInt(cursor.getString(0)));
+//        contact.setName(cursor.getString(1));
+//        contact.setPhoneNumber(cursor.getString(2));
+//
+//        return contact;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseConstants.USERS_TABLE_NAME,
+                new String[]{ // get all fields
+                        DatabaseConstants.USERS_KEY_ID,
+                        DatabaseConstants.USERS_KEY_FIRST,
+                        DatabaseConstants.USERS_KEY_LAST,
+                        DatabaseConstants.USERS_KEY_PASSWORD,
+                        DatabaseConstants.USERS_KEY_Q1,
+                        DatabaseConstants.USERS_KEY_ANS1,
+                        DatabaseConstants.USERS_KEY_Q2,
+                        DatabaseConstants.USERS_KEY_ANS2},
+                DatabaseConstants.USERS_KEY_ID + "=?", new String[]{String.valueOf(user_id)}, //where id  = user id
+                null, null, null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
+
+        // Create user object
+        User user = new User();
+        user.setUserID(Integer.parseInt(cursor.getString(0)));
+        user.setFirstName(cursor.getString(1));
+        user.setLastName(cursor.getString(2));
+        user.setPassword(cursor.getString(3));
+        user.setQuestion1(cursor.getString(4));
+        user.setAnswer1(cursor.getString(5));
+        user.setQuestion2(cursor.getString(6));
+        user.setAnswer2(cursor.getString(7));
+        return user;
+    }
 
     // TODO Delete User
 

@@ -29,6 +29,10 @@ public class Receipt {
         this.images = images;
     }
 
+    public Receipt(){
+
+    }
+
     public int getReceiptID() {
         return receiptID;
     }

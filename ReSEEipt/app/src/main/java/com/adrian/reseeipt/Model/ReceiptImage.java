@@ -18,6 +18,10 @@ public class ReceiptImage {
         this.imageBytes = imageBytes;
     }
 
+    public ReceiptImage(){
+
+    }
+
     public int getImageID() {
         return imageID;
     }

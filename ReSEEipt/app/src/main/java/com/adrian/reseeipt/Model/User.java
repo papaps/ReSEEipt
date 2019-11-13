@@ -31,6 +31,10 @@ public class User {
         this.answer2 = answer2;
     }
 
+    public User(){
+
+    }
+
     public int getUserID() {
         return userID;
     }
