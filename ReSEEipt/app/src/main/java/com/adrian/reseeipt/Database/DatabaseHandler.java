@@ -11,6 +11,8 @@ import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.Model.User;
 
+import java.util.ArrayList;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     public DatabaseHandler(Context context) {
@@ -209,7 +211,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO Get image
+    // TODO Get images of a receipt
+    public ArrayList<ReceiptImage> getReceiptImages(int receiptID){
+        ArrayList<ReceiptImage> list = new ArrayList<>();
+
+//        //Select all receipts
+//        String selectAll = "SELECT * FROM " + Util.TABLE_NAME;
+//        Cursor cursor = db.rawQuery(selectAll, null);
+//
+//        //Loop through our data
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Contact contact = new Contact("James", "213986");
+//                contact.setId(Integer.parseInt(cursor.getString(0)));
+//                contact.setName(cursor.getString(1));
+//                contact.setPhoneNumber(cursor.getString(2));
+//
+//                //add contact objects to our list
+//                contactList.add(contact);
+//            }while (cursor.moveToNext());
+//        }
+
+        return list;
+    }
 
     /**
      * Hold upppppp....
