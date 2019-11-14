@@ -44,7 +44,7 @@ public class ReceiptImage {
         return imageBitmap;
     }
 
-    public void setImageBytes(Bitmap imageBitmap) {
+    public void setImageBitmap(Bitmap imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
 }

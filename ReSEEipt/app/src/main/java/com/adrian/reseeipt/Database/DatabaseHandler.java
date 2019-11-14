@@ -211,26 +211,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO Get images of a receipt
+    // Get the images of a single receipt
     public ArrayList<ReceiptImage> getReceiptImages(int receiptID){
         ArrayList<ReceiptImage> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
 
-//        //Select all receipts
-//        String selectAll = "SELECT * FROM " + Util.TABLE_NAME;
-//        Cursor cursor = db.rawQuery(selectAll, null);
-//
-//        //Loop through our data
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Contact contact = new Contact("James", "213986");
-//                contact.setId(Integer.parseInt(cursor.getString(0)));
-//                contact.setName(cursor.getString(1));
-//                contact.setPhoneNumber(cursor.getString(2));
-//
-//                //add contact objects to our list
-//                contactList.add(contact);
-//            }while (cursor.moveToNext());
-//        }
+        String selectAll = "SELECT * FROM " + DatabaseConstants.IMAGES_TABLE_NAME + " WHERE " + DatabaseConstants.IMAGES_KEY_RECEIPT + " = " + receiptID;
+        Cursor cursor = db.rawQuery(selectAll, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                ReceiptImage receiptImage = new ReceiptImage();
+                receiptImage.setImageID(Integer.parseInt(cursor.getString(0)));
+                receiptImage.setReceiptID(Integer.parseInt(cursor.getString(1)));
+                receiptImage.setImageBitmap(DatabaseUtil.getImage(cursor.getBlob(2)));
+
+                //add contact objects to our list
+                list.add(receiptImage);
+            }while (cursor.moveToNext());
+        }
 
         return list;
     }
