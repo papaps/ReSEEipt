@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.adrian.reseeipt.Constants.DatabaseConstants;
 import com.adrian.reseeipt.Model.Receipt;
+import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.Model.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -143,8 +144,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO Add Receipt
-    public void addReceipt(Receipt receipt){
+    // Needs to return the id of the receipt created because it is needed to add the images
+    /**
+     * Adds the receipt, but does not add its images.
+     * Call {@link #addImage(ReceiptImage receiptImage)} after calling this method
+     */
+    public int addReceipt(Receipt receipt){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.RECEIPTS_KEY_TITLE, receipt.getTitle());
@@ -153,12 +158,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DatabaseConstants.RECEIPTS_KEY_DATE, receipt.getDateAdded());
         // Insert to row
         db.insert(DatabaseConstants.RECEIPTS_TABLE_NAME, null, values);
+
+
+        String selectQuery = "SELECT  * FROM " + DatabaseConstants.RECEIPTS_TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToLast();
+        int newID = Integer.parseInt(cursor.getString(0));
+
+        db.close();
+
+        return newID;
+    }
+
+    // Deletes a Receipt
+    public void deleteReceipt(Receipt receipt){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(DatabaseConstants.RECEIPTS_TABLE_NAME, DatabaseConstants.RECEIPTS_KEY_ID + "=?",
+                new String[]{String.valueOf(receipt.getReceiptID())});
+
         db.close();
     }
 
-    // TODO Delete Receipt
 
     // TODO Edit Receipt
 
+    /**
+     * Adds a receipt image. Call this after calling {@link #addReceipt(Receipt receipt)} in wherever
+     * DO this for each image
+     */
+    public void addImage(ReceiptImage receiptImage){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstants.IMAGES_KEY_RECEIPT, receiptImage.getReceiptID());
+        values.put(DatabaseConstants.IMAGES_KEY_BYTES, DatabaseUtil.getBytes(receiptImage.getImageBitmap())); // Get the bytes version
 
+        // Insert to row
+        db.insert(DatabaseConstants.IMAGES_TABLE_NAME, null, values);
+        db.close();
+    }
+
+    /**
+     * Hold upppppp....
+     * Why delete all, you ask?
+     * It's gonna be difficult to "edit images of a receipt", so just delete all of it, and add them again. :)
+     */
+    public void deleteAllImageOfReceipt(int receipt_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(DatabaseConstants.IMAGES_TABLE_NAME, DatabaseConstants.IMAGES_KEY_RECEIPT + "=?",
+                new String[]{String.valueOf(receipt_id)});
+
+        db.close();
+    }
 }

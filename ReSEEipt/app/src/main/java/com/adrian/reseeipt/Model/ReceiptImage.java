@@ -1,21 +1,23 @@
 package com.adrian.reseeipt.Model;
 
+import android.graphics.Bitmap;
+
 public class ReceiptImage {
     private int imageID;
     private int receiptID;
-    private byte[] imageBytes;
+    private Bitmap imageBitmap;
 
     // Use this constructor when retrieving objects from database and converting it into objects
-    public ReceiptImage(int imageID, int receiptID, byte[] imageBytes) {
+    public ReceiptImage(int imageID, int receiptID, Bitmap imageBytes) {
         this.imageID = imageID;
         this.receiptID = receiptID;
-        this.imageBytes = imageBytes;
+        this.imageBitmap = imageBytes;
     }
 
     // Use this constructor when adding new image objects
-    public ReceiptImage(int receiptID, byte[] imageBytes) {
+    public ReceiptImage(int receiptID, Bitmap imageBytes) {
         this.receiptID = receiptID;
-        this.imageBytes = imageBytes;
+        this.imageBitmap = imageBytes;
     }
 
     public ReceiptImage(){
@@ -38,11 +40,11 @@ public class ReceiptImage {
         this.receiptID = receiptID;
     }
 
-    public byte[] getImageBytes() {
-        return imageBytes;
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
     }
 
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
+    public void setImageBytes(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
     }
 }
