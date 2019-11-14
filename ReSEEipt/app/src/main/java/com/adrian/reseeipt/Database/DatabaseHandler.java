@@ -180,8 +180,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    // TODO Get Receipt
 
-    // TODO Edit Receipt
+    // Edit a receipt
+    public int updateReceipt(Receipt receipt){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstants.RECEIPTS_KEY_TITLE, receipt.getTitle());
+        values.put(DatabaseConstants.RECEIPTS_KEY_NOTES, receipt.getNotes());
+        values.put(DatabaseConstants.RECEIPTS_KEY_CATEGORY, receipt.getCategories());
+        values.put(DatabaseConstants.RECEIPTS_KEY_DATE, receipt.getDateAdded());
+        return db.update(DatabaseConstants.RECEIPTS_TABLE_NAME, values, DatabaseConstants.RECEIPTS_KEY_ID + "=?",
+                new String[]{String.valueOf(receipt.getReceiptID())});
+    }
 
     /**
      * Adds a receipt image. Call this after calling {@link #addReceipt(Receipt receipt)} in wherever
@@ -197,6 +208,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(DatabaseConstants.IMAGES_TABLE_NAME, null, values);
         db.close();
     }
+
+    // TODO Get image
 
     /**
      * Hold upppppp....
