@@ -165,8 +165,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DatabaseConstants.RECEIPTS_KEY_DATE, receipt.getDateAdded());
         // Insert to row
         db.insert(DatabaseConstants.RECEIPTS_TABLE_NAME, null, values);
+        db.close();
 
-
+        db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + DatabaseConstants.RECEIPTS_TABLE_NAME;
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToLast();
