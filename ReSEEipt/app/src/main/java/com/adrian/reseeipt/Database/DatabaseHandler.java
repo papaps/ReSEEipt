@@ -114,6 +114,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         user.setAnswer1(cursor.getString(5));
         user.setQuestion2(cursor.getString(6));
         user.setAnswer2(cursor.getString(7));
+
+        cursor.close();
         return user;
     }
 
@@ -144,6 +146,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(user.getUserID())});
 
         db.close();
+
+        clearReceipts();
     }
 
     // Needs to return the id of the receipt created because it is needed to add the images
@@ -167,6 +171,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.moveToLast();
         int newID = Integer.parseInt(cursor.getString(0));
 
+
+        cursor.close();
         db.close();
 
         return newID;
@@ -183,6 +189,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Delete the images of that receipt as well
         deleteAllImageOfReceipt(receipt.getReceiptID());
+    }
+
+    // Clear All Receipts -  when deleting user
+    private void clearReceipts(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DatabaseConstants.RECEIPTS_TABLE_NAME, null, null);
+        db.close();
     }
 
     // Get All Receipts
@@ -207,6 +220,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
         return list;
     }
 
@@ -232,6 +247,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
         return list;
     }
 
@@ -257,6 +274,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
         return list;
     }
 
@@ -288,7 +307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Get the images of a single receipt
-    public ArrayList<ReceiptImage> getReceiptImages(int receiptID){
+    private ArrayList<ReceiptImage> getReceiptImages(int receiptID){
         ArrayList<ReceiptImage> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -307,6 +326,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+
+        cursor.close();
+        db.close();
         return list;
     }
 
