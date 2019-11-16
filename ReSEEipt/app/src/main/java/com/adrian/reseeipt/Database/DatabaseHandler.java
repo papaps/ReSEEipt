@@ -116,6 +116,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         user.setAnswer2(cursor.getString(7));
 
         cursor.close();
+        db.close();
         return user;
     }
 
@@ -196,6 +197,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(DatabaseConstants.RECEIPTS_TABLE_NAME, null, null);
         db.close();
+    }
+
+    // Get one receipt
+    public Receipt getReceipt (int receipt_id){
+        Receipt receipt = new Receipt();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseConstants.USERS_TABLE_NAME,
+                new String[]{ // get all fields
+                        DatabaseConstants.RECEIPTS_KEY_ID,
+                        DatabaseConstants.RECEIPTS_KEY_TITLE,
+                        DatabaseConstants.RECEIPTS_KEY_NOTES,
+                        DatabaseConstants.RECEIPTS_KEY_CATEGORY,
+                        DatabaseConstants.RECEIPTS_KEY_DATE},
+                DatabaseConstants.RECEIPTS_KEY_ID + "=?", new String[]{String.valueOf(receipt_id)}, //where id  = receipt id
+                null, null, null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
+
+        receipt.setReceiptID(Integer.parseInt(cursor.getString(0)));
+        receipt.setTitle(cursor.getString(1));
+        receipt.setNotes(cursor.getString(2));
+        receipt.setCategories(cursor.getString(3));
+        receipt.setDateAdded(cursor.getString(4));
+        receipt.setImages(getReceiptImages(Integer.parseInt(cursor.getString(0))));
+
+        cursor.close();
+        db.close();
+        return receipt;
     }
 
     // Get All Receipts
