@@ -10,7 +10,7 @@
         android:id="@+id/registerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="92dp"
         android:fontFamily="@font/roboto"
         android:text="Register"
         android:textColor="@color/colorPrimary"
@@ -21,9 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -35,14 +36,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentStart = "true">
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/firstNameLabel"
@@ -70,8 +71,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentEnd = "true">
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lastNameLabel"
@@ -80,7 +81,7 @@
                     android:layout_marginStart="4dp"
                     android:text="Last Name"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/lastNameField"
@@ -100,13 +101,13 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="20dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,13 +141,13 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="20dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,5 +181,50 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+        <Button
+            android:id="@+id/registerFirstCancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_white_50dp"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="CANCEL"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25" />
+
+        <Button
+            android:id="@+id/registerFirstNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_blue_50dp"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="NEXT"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
