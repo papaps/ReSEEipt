@@ -21,19 +21,164 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="28dp"
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerText">
 
-        <Space
-            android:layout_weight="1"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentStart = "true">
+
+                <TextView
+                    android:id="@+id/firstNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="First Name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/firstNameField"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/rounded_inputs_half"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text=""
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentEnd = "true">
+
+                <TextView
+                    android:id="@+id/lastNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Last Name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/lastNameField"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/rounded_inputs_half"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text=""
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/passwordLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Password"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/passwordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/rounded_inputs_half"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text=""
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/confirmPasswordLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Confirm Password"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/confirmPasswordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/rounded_inputs_half"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text=""
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
