@@ -2,9 +2,14 @@ package com.adrian.reseeipt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
 
@@ -12,6 +17,12 @@ public class RegisterSecurityActivity extends AppCompatActivity {
 
     private Spinner question1Spinner;
     private Spinner question2Spinner;
+
+    private EditText answer1Field;
+    private EditText answer2Field;
+    private TextView registerSecurityErrorText;
+    private Button registerSecondBackButton;
+    private Button registerSecondConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +42,44 @@ public class RegisterSecurityActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, SecurityQuestionsConstants.getQuestions());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         question2Spinner.setAdapter(adapter2);
+
+        answer1Field = findViewById(R.id.answer1Field);
+        answer2Field = findViewById(R.id.answer2Field);
+
+        registerSecondConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String errorMessage = validateFields();
+                if (errorMessage.equals("Okay")){
+                    // TODO Add the stuff sa DB
+
+
+                } else {
+                    registerSecurityErrorText.setText(errorMessage);
+                }
+            }
+        });
+
+
+        registerSecondBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterSecurityActivity.this, RegisterFirstActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private String validateFields(){
+        String answer = "Okay";
+
+
+        if (answer1Field.getText().toString().isEmpty() ||
+                answer2Field.getText().toString().isEmpty()){
+            answer = "Missing Fields";
+        }
+
+        return answer;
     }
 }
