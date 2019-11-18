@@ -15,7 +15,7 @@
         android:paddingTop="7dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ProfileView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/Reseept_Profile_Blue" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/ReseeptLogoView"
             android:layout_width="719dp"
             android:layout_height="43dp"
             android:layout_weight="1"
