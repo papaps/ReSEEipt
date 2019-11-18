@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00EBEBEB"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@drawable/bottom_shadow"
+        android:orientation="horizontal"
+        android:paddingTop="7dp">
+
+        <ImageView
+            android:id="@+id/ProfileView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            app:srcCompat="@drawable/Reseept_Profile_Blue" />
+
+        <ImageView
+            android:id="@+id/ReseeptLogoView"
+            android:layout_width="719dp"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:paddingRight="50dp"
+            app:srcCompat="@drawable/Reseept" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/AllView"
+                android:layout_width="195dp"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/All_Receipts_Asset" />
+
+            <TextView
+                android:id="@+id/AllText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="All Receipts"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/MealsView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Meal_Asset" />
+
+            <TextView
+                android:id="@+id/MealsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Meals"
+                android:scaleType="fitCenter"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="206dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/GroceryView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Grocery_Asset" />
+
+            <TextView
+                android:id="@+id/GroceryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grocery"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ShoppingView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Shopping_Asset" />
+
+            <TextView
+                android:id="@+id/ShoppingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shopping"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="208dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/UtilitiesView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Utilities_Asset" />
+
+            <TextView
+                android:id="@+id/UtilitiesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Utilities"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/AppliancesView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Appliance_Asset" />
+
+            <TextView
+                android:id="@+id/AppliancesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Appliances"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="208dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/GadgetsView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Gadget_Asset" />
+
+            <TextView
+                android:id="@+id/GadgetsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gadgets"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Others"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/OthersView"
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/Others_Asset" />
+
+            <TextView
+                android:id="@+id/OthersText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Others"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
