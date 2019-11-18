@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Constants.IntentConstants;
+
 public class RegisterFirstActivity extends AppCompatActivity {
     private EditText firstNameField;
     private EditText lastNameField;
@@ -40,6 +42,9 @@ public class RegisterFirstActivity extends AppCompatActivity {
                     //Todo Go to next part of Register
                     Intent intent = new Intent(RegisterFirstActivity.this, RegisterSecurityActivity.class);
 
+                    intent.putExtra(IntentConstants.INTNT_FIRST_NAME, firstNameField.getText().toString());
+                    intent.putExtra(IntentConstants.INTNT_LAST_NAME, lastNameField.getText().toString());
+                    intent.putExtra(IntentConstants.INTNT_PASSWORD, passwordField.getText().toString());
                     startActivity(intent);
                     finish();
                 } else {
