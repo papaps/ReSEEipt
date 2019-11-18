@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ReSEEipt</string>
+    <string name="title_activity_add_receipt">AddReceiptActivity</string>
     <string name="forgot_pass_text"><u>FORGOT PASSWORD?</u></string>
 </resources>
