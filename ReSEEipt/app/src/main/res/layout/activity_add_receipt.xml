@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addReceiptAddImageButton" />
 
     <EditText
-        android:id="@+id/addReceiptTitle"
+        android:id="@+id/addReceiptTitleEditText"
         android:layout_width="271dp"
         android:layout_height="42dp"
         android:layout_marginTop="16dp"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addReceiptAddImageButton" />
 
     <EditText
-        android:id="@+id/addReceiptNotes"
+        android:id="@+id/addReceiptNotesEditText"
         android:layout_width="261dp"
         android:layout_height="42dp"
         android:layout_marginTop="24dp"
@@ -114,15 +114,16 @@
     <RelativeLayout
         android:layout_width="225dp"
         android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_inputs_half"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="388dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addReceiptTitleEditText">
 
         <Spinner
-            android:id="@+id/question1Spinner"
+            android:id="@+id/categorySpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:background="@null"
             android:minHeight="0dp"
             android:paddingStart="5dp"
@@ -149,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addReceiptNotes"
+        app:layout_constraintTop_toBottomOf="@+id/addReceiptNotesEditText"
         app:layout_constraintVertical_bias="0.555">
 
         <Button

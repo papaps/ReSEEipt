@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
+import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -23,7 +25,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.io.IOException;
 
@@ -31,6 +37,9 @@ public class AddReceiptActivity extends AppCompatActivity {
 
     ImageView ivImage;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    Spinner categorySpinner;
+    Button addReceiptAddImageButton, addReceiptCancelButton, addReceiptAddButton;
+    EditText addReceiptTitleEditText, addReceiptNotesEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +47,21 @@ public class AddReceiptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_receipt);
 
         ivImage = findViewById(R.id.ivImage);
+        categorySpinner = findViewById(R.id.categorySpinner);
+        addReceiptAddImageButton = findViewById(R.id.addReceiptAddButton);
+        addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
+        addReceiptAddButton = findViewById(R.id.addReceiptAddButton);
+        addReceiptTitleEditText = findViewById(R.id.addReceiptTitleEditText);
+        addReceiptNotesEditText = findViewById(R.id.addReceiptNotesEditText);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, ReceiptCategoryConstants.getCategories());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
+        addReceiptAddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 selectImage();
             }
         });
