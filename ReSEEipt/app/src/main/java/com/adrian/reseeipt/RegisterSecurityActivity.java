@@ -83,6 +83,9 @@ public class RegisterSecurityActivity extends AppCompatActivity {
                     editor.apply();
 
                     //TODO Load Loading Screen
+                    Intent loadingIntent = new Intent (RegisterSecurityActivity.this, CreatingAccountLoading.class);
+                    startActivity(loadingIntent);
+                    finish();
 
                 } else {
                     registerSecurityErrorText.setText(errorMessage);
