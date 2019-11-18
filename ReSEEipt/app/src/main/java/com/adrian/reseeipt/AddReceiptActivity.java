@@ -48,7 +48,7 @@ public class AddReceiptActivity extends AppCompatActivity {
 
         ivImage = findViewById(R.id.ivImage);
         categorySpinner = findViewById(R.id.categorySpinner);
-        addReceiptAddImageButton = findViewById(R.id.addReceiptAddButton);
+        addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
         addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
         addReceiptAddButton = findViewById(R.id.addReceiptAddButton);
         addReceiptTitleEditText = findViewById(R.id.addReceiptTitleEditText);
