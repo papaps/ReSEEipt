@@ -2,7 +2,9 @@ package com.adrian.reseeipt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
+import com.adrian.reseeipt.Constants.SharedPrefConstants;
+import com.adrian.reseeipt.Database.DatabaseHandler;
+import com.adrian.reseeipt.Model.User;
 
 public class RegisterSecurityActivity extends AppCompatActivity {
 
@@ -24,10 +30,16 @@ public class RegisterSecurityActivity extends AppCompatActivity {
     private Button registerSecondBackButton;
     private Button registerSecondConfirmButton;
 
+    private DatabaseHandler databaseHandler;
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_security);
+
+        databaseHandler = new DatabaseHandler(this);
+        sharedPreferences = getSharedPreferences(SharedPrefConstants.APP_PREFERENCE_NAME, Context.MODE_PRIVATE);
 
         // Set the questions in the spinner 1
         question1Spinner= (Spinner) findViewById(R.id.question1Spinner);
@@ -45,14 +57,32 @@ public class RegisterSecurityActivity extends AppCompatActivity {
 
         answer1Field = findViewById(R.id.answer1Field);
         answer2Field = findViewById(R.id.answer2Field);
+        registerSecurityErrorText = findViewById(R.id.registerSecurityErrorTextLabel);
+        registerSecondBackButton = findViewById(R.id.registerSecondBackButton);
+        registerSecondConfirmButton = findViewById(R.id.registerSecondConfirmButton);
 
         registerSecondConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String errorMessage = validateFields();
                 if (errorMessage.equals("Okay")){
-                    // TODO Add the stuff sa DB
+                    Intent intent = getIntent();
+                    User user = new User();
+                    user.setFirstName(intent.getStringExtra(IntentConstants.INTNT_FIRST_NAME));
+                    user.setLastName(intent.getStringExtra(IntentConstants.INTNT_LAST_NAME));
+                    user.setPassword(intent.getStringExtra(IntentConstants.INTNT_PASSWORD));
+                    user.setQuestion1(question1Spinner.getSelectedItem().toString());
+                    user.setAnswer1(answer1Field.getText().toString());
+                    user.setQuestion2(question2Spinner.getSelectedItem().toString());
+                    user.setAnswer2(answer2Field.getText().toString());
 
+                    int newUserID = databaseHandler.addUser(user);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(SharedPrefConstants.PREF_USER_ID, newUserID);
+                    editor.commit();
+
+                    //TODO Load Loading Screen
 
                 } else {
                     registerSecurityErrorText.setText(errorMessage);

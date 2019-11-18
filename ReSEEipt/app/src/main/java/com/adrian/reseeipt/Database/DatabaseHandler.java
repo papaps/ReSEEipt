@@ -70,7 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser(User user){
+    public int addUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.USERS_KEY_FIRST, user.getFirstName());
@@ -83,6 +83,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Insert to row
         db.insert(DatabaseConstants.USERS_TABLE_NAME, null, values);
         db.close();
+
+        db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + DatabaseConstants.USERS_TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToLast();
+        int newID = Integer.parseInt(cursor.getString(0));
+
+
+        cursor.close();
+        db.close();
+
+        return newID;
     }
 
     public User getUser(int user_id){
