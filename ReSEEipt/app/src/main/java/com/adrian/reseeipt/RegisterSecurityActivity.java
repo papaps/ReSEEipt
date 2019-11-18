@@ -80,7 +80,7 @@ public class RegisterSecurityActivity extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(SharedPrefConstants.PREF_USER_ID, newUserID);
-                    editor.commit();
+                    editor.apply();
 
                     //TODO Load Loading Screen
 
