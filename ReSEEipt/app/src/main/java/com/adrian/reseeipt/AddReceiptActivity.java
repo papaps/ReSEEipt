@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +24,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.io.IOException;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
@@ -27,8 +36,6 @@ public class AddReceiptActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receipt);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         ivImage = findViewById(R.id.ivImage);
 
@@ -59,6 +66,7 @@ public class AddReceiptActivity extends AppCompatActivity {
                 } else if (items[i].equals("Gallery")) {
 
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     intent.setType("image/*");
                     //startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
                     startActivityForResult(intent, SELECT_FILE);
@@ -86,7 +94,13 @@ public class AddReceiptActivity extends AppCompatActivity {
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectedImageUri = data.getData();
-                ivImage.setImageURI(selectedImageUri);
+                try {
+                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(this).load(selectedImageUri).into(ivImage);
+                //ivImage.setImageURI(selectedImageUri);
             }
 
         }

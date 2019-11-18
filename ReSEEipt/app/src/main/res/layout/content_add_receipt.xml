@@ -8,8 +8,12 @@
     tools:context=".AddReceiptActivity"
     tools:showIn="@layout/activity_add_receipt">
 
-    <ImageView android:id="@+id/ivImage"
+    <ImageView
+        android:id="@+id/ivImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ImageView>
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
