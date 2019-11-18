@@ -101,12 +101,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="193dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
         <LinearLayout
-            android:layout_width="206dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/GroceryView"
@@ -126,9 +128,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/ShoppingView"
@@ -151,12 +154,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="193dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
         <LinearLayout
-            android:layout_width="208dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/UtilitiesView"
@@ -176,9 +181,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/AppliancesView"
@@ -201,12 +207,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="193dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
         <LinearLayout
-            android:layout_width="208dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/GadgetsView"
@@ -226,10 +234,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/Others"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/OthersView"
