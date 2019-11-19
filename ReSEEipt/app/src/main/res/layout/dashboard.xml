@@ -12,24 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:background="@drawable/bottom_shadow"
-        android:orientation="horizontal"
-        android:paddingTop="7dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ProfileView"
-            android:layout_width="wrap_content"
+            android:layout_width="128dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:paddingBottom="10dp"
             app:srcCompat="@drawable/reseept_profile_blue_min" />
 
         <ImageView
             android:id="@+id/ReseeptLogoView"
-            android:layout_width="719dp"
-            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
             android:layout_weight="1"
             android:paddingRight="50dp"
+            android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/reseept_min" />
     </LinearLayout>
 
@@ -59,7 +59,7 @@
 
             <ImageView
                 android:id="@+id/AllView"
-                android:layout_width="195dp"
+                android:layout_width="match_parent"
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
