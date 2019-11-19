@@ -12,7 +12,7 @@
         android:layout_height="110dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/reseept_blue_logo"
+        android:src="@drawable/reseept_blue_logo_min"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -57,7 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                 String errorMessage = validateFields();
                 if (errorMessage.equals("Okay")){
                     //Todo Put the Stuff in intent and call activity
-                    Toast.makeText(getApplicationContext(), user.getAnswer1(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), user.getAnswer1(), Toast.LENGTH_LONG).show();
+                    Intent newIntent = new Intent(LoginActivity.this, MainDashboardActivity.class);
+                    startActivity(newIntent);
+                    finish();
                 } else {
                     loginErrorText.setText(errorMessage);
                 }
@@ -71,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (passwordLoginField.getText().toString().isEmpty()){
             answer = "Please Input Your Password";
-        } else if (passwordLoginField.getText().toString().equals(user.getPassword())){
+        } else if (!passwordLoginField.getText().toString().equals(user.getPassword())){
             answer = "Passwords is Incorrect";
         }
 

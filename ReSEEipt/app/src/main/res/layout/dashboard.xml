@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00EBEBEB"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="25dp">
 
     <LinearLayout
         android:id="@+id/bottom_bar"
@@ -21,7 +22,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            app:srcCompat="@drawable/reseept_profile_blue" />
+            app:srcCompat="@drawable/reseept_profile_blue_min" />
 
         <ImageView
             android:id="@+id/ReseeptLogoView"
@@ -29,7 +30,7 @@
             android:layout_height="43dp"
             android:layout_weight="1"
             android:paddingRight="50dp"
-            app:srcCompat="@drawable/reseept" />
+            app:srcCompat="@drawable/reseept_min" />
     </LinearLayout>
 
     <ScrollView
@@ -62,7 +63,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/all_receipts_asset" />
+                app:srcCompat="@drawable/all_receipts_asset_min" />
 
             <TextView
                 android:id="@+id/AllText"
@@ -85,7 +86,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/meal_asset" />
+                app:srcCompat="@drawable/meal_asset_min" />
 
             <TextView
                 android:id="@+id/MealsText"
@@ -116,7 +117,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/grocery_asset" />
+                app:srcCompat="@drawable/grocery_asset_min" />
 
             <TextView
                 android:id="@+id/GroceryText"
@@ -139,7 +140,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/shopping_asset" />
+                app:srcCompat="@drawable/shopping_asset_min" />
 
             <TextView
                 android:id="@+id/ShoppingText"
@@ -169,7 +170,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/utilities_asset" />
+                app:srcCompat="@drawable/utilities_asset_min" />
 
             <TextView
                 android:id="@+id/UtilitiesText"
@@ -192,7 +193,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/appliance_asset" />
+                app:srcCompat="@drawable/appliance_asset_min" />
 
             <TextView
                 android:id="@+id/AppliancesText"
@@ -222,7 +223,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/gadget_asset" />
+                app:srcCompat="@drawable/gadget_asset_min" />
 
             <TextView
                 android:id="@+id/GadgetsText"
@@ -245,7 +246,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/others_asset" />
+                app:srcCompat="@drawable/others_asset_min" />
 
             <TextView
                 android:id="@+id/OthersText"
