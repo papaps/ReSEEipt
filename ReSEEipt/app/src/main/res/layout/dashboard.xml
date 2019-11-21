@@ -34,13 +34,13 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="3">
@@ -67,6 +67,7 @@
 
             <TextView
                 android:id="@+id/AllText"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="All Receipts"
@@ -95,7 +96,8 @@
                 android:text="Meals"
                 android:scaleType="fitCenter"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -125,7 +127,8 @@
                 android:layout_height="wrap_content"
                 android:text="Grocery"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
 
         <LinearLayout
@@ -148,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:text="Shopping"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -178,7 +182,8 @@
                 android:layout_height="wrap_content"
                 android:text="Utilities"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
 
         <LinearLayout
@@ -201,7 +206,8 @@
                 android:layout_height="wrap_content"
                 android:text="Appliances"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -231,7 +237,8 @@
                 android:layout_height="wrap_content"
                 android:text="Gadgets"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
 
         <LinearLayout
@@ -254,7 +261,8 @@
                 android:layout_height="wrap_content"
                 android:text="Others"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>
