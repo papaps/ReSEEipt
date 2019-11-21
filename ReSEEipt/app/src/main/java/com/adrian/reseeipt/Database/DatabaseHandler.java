@@ -343,7 +343,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.IMAGES_KEY_RECEIPT, receiptImage.getReceiptID());
-        values.put(DatabaseConstants.IMAGES_KEY_BYTES, DatabaseUtil.getBytes(receiptImage.getImageBitmap())); // Get the bytes version
+        values.put(DatabaseConstants.IMAGES_KEY_BYTES, receiptImage.getImageBytes()); // Get the bytes version
 
         // Insert to row
         db.insert(DatabaseConstants.IMAGES_TABLE_NAME, null, values);
@@ -363,7 +363,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ReceiptImage receiptImage = new ReceiptImage();
                 receiptImage.setImageID(Integer.parseInt(cursor.getString(0)));
                 receiptImage.setReceiptID(Integer.parseInt(cursor.getString(1)));
-                receiptImage.setImageBitmap(DatabaseUtil.getImage(cursor.getBlob(2)));
+                receiptImage.setImageBytes(cursor.getBlob(2));
 
                 //add contact objects to our list
                 list.add(receiptImage);
