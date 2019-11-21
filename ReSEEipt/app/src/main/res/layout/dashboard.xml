@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="60dp"
         android:background="@drawable/bottom_shadow"
         android:orientation="horizontal">
 
