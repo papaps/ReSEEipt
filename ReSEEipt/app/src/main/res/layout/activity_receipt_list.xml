@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            app:srcCompat="" />
+           />
 
     </LinearLayout>
 
