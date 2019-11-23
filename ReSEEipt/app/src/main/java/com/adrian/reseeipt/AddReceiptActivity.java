@@ -2,6 +2,7 @@ package com.adrian.reseeipt;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+
+import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
@@ -50,6 +55,7 @@ public class AddReceiptActivity extends AppCompatActivity {
     EditText addReceiptTitleEditText, addReceiptNotesEditText;
 
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    ArrayList<String> temp = new ArrayList<>();
 
     String imageEncoded;
     List<String> imagesEncodedList;
@@ -168,7 +174,8 @@ public class AddReceiptActivity extends AppCompatActivity {
                         Log.v("LOG_TAG", "Selected Images" + mArrayUri.size());
                     }
                 }
-                mImageUrls = (ArrayList<String>) imagesEncodedList;
+                temp = (ArrayList<String>) imagesEncodedList;
+                mImageUrls.addAll(temp);
                 initRecyclerView();
 
                 //ORIGINAL CONTENT
@@ -185,11 +192,19 @@ public class AddReceiptActivity extends AppCompatActivity {
         }
     }
 
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recycle_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mImageUrls);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
 }
