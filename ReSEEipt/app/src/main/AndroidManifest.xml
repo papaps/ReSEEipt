@@ -13,10 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReceiptListActivity"></activity>
+        <activity android:name=".GalleryActivity"></activity>
+        <activity android:name=".ReceiptListActivity" />
         <activity android:name=".MainDashboardActivity" />
         <activity android:name=".CreatingAccountLoading" />
-        <activity android:name=".AddReceiptActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".AddReceiptActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +29,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterSecurityActivity" />
         <activity android:name=".RegisterFirstActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

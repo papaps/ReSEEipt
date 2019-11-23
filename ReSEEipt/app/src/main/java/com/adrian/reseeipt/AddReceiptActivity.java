@@ -1,12 +1,15 @@
 package com.adrian.reseeipt;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import java.util.*;
 
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
@@ -22,9 +25,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,21 +39,27 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
-    ImageView ivImage;
-    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    Integer REQUEST_CAMERA = 1, PICK_IMAGE_MULTIPLE = 0;
     Spinner categorySpinner;
     Button addReceiptAddImageButton, addReceiptCancelButton, addReceiptAddButton;
     EditText addReceiptTitleEditText, addReceiptNotesEditText;
+
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    String imageEncoded;
+    List<String> imagesEncodedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receipt);
 
-        ivImage = findViewById(R.id.ivImage);
+        //ivImage = findViewById(R.id.ivImage);
         categorySpinner = findViewById(R.id.categorySpinner);
         addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
         addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
@@ -87,8 +100,9 @@ public class AddReceiptActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     intent.setType("image/*");
-                    //startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                    startActivityForResult(intent, SELECT_FILE);
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent.createChooser(intent, "Select File"), PICK_IMAGE_MULTIPLE);
+                    //startActivityForResult(intent, SELECT_FILE);
 
                 } else if (items[i].equals("Cancel")) {
                     dialogInterface.dismiss();
@@ -108,21 +122,74 @@ public class AddReceiptActivity extends AppCompatActivity {
 
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                ivImage.setImageBitmap(bmp);
+                //ivImage.setImageBitmap(bmp);
 
-            }else if(requestCode==SELECT_FILE){
+            } else if(requestCode==PICK_IMAGE_MULTIPLE && null != data){
 
-                Uri selectedImageUri = data.getData();
-                try {
-                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // Get the Image from data
+                //https://stackoverflow.com/questions/19585815/select-multiple-images-from-android-gallery
+
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                imagesEncodedList = new ArrayList<String>();
+                if(data.getData()!=null){
+
+                    Uri mImageUri=data.getData();
+
+                    // Get the cursor
+                    Cursor cursor = getContentResolver().query(mImageUri,
+                            filePathColumn, null, null, null);
+                    // Move to first row
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    imageEncoded  = cursor.getString(columnIndex);
+                    cursor.close();
+
+                } else {
+                    if (data.getClipData() != null) {
+                        ClipData mClipData = data.getClipData();
+                        ArrayList<Uri> mArrayUri = new ArrayList<Uri>();
+                        for (int i = 0; i < mClipData.getItemCount(); i++) {
+
+                            ClipData.Item item = mClipData.getItemAt(i);
+                            Uri uri = item.getUri();
+                            mArrayUri.add(uri);
+                            // Get the cursor
+                            Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
+                            // Move to first row
+                            cursor.moveToFirst();
+
+                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                            imageEncoded  = cursor.getString(columnIndex);
+                            imagesEncodedList.add(imageEncoded);
+                            cursor.close();
+
+                        }
+                        Log.v("LOG_TAG", "Selected Images" + mArrayUri.size());
+                    }
                 }
-                Glide.with(this).load(selectedImageUri).into(ivImage);
+                mImageUrls = (ArrayList<String>) imagesEncodedList;
+                initRecyclerView();
+
+                //ORIGINAL CONTENT
+//                Uri selectedImageUri = data.getData();
+//                try {
+//                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                Glide.with(this).load(selectedImageUri).into(ivImage);
                 //ivImage.setImageURI(selectedImageUri);
             }
 
         }
+    }
+
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recycle_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mImageUrls);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }
