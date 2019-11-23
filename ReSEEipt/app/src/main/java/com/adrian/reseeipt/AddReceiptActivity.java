@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -126,9 +127,19 @@ public class AddReceiptActivity extends AppCompatActivity {
 
             if(requestCode==REQUEST_CAMERA){
 
-                Bundle bundle = data.getExtras();
-                final Bitmap bmp = (Bitmap) bundle.get("data");
-                //ivImage.setImageBitmap(bmp);
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                Uri tempUri = getImageUri(getApplicationContext(), photo);
+
+                // CALL THIS METHOD TO GET THE ACTUAL PATH
+                mImageUrls.add(getRealPathFromURI(tempUri));
+                initRecyclerView();
+
+                //ORIGINAL CONTENT
+//                Bundle bundle = data.getExtras();
+//                final Bitmap bmp = (Bitmap) bundle.get("data");
+//                ivImage.setImageBitmap(bmp);
 
             } else if(requestCode==PICK_IMAGE_MULTIPLE && null != data){
 
@@ -192,11 +203,25 @@ public class AddReceiptActivity extends AppCompatActivity {
         }
     }
 
-    private Uri getImageUri(Context context, Bitmap inImage) {
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String path = "";
+        if (getContentResolver() != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
     }
 
     private void initRecyclerView(){
