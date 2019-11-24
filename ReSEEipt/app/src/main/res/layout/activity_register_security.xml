@@ -64,19 +64,12 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:background="@null"
                         android:minHeight="0dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingEnd="10dp"
-                        tools:srcCompat="@android:drawable/arrow_down_float" />
+
                 </RelativeLayout>
 
 
@@ -157,19 +150,11 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:background="@null"
                         android:minHeight="0dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingEnd="10dp"
-                        tools:srcCompat="@android:drawable/arrow_down_float" />
                 </RelativeLayout>
 
 
