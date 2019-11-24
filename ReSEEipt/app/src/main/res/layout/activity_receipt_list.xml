@@ -27,20 +27,29 @@
             android:gravity="center_vertical"
             android:layout_weight="1.5">
 
-            <ImageView
-                android:id="@+id/ProfileView"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/back_button"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"/>
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:id="@+id/backToDashboardButton">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/back_button"
+                    android:clickable="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:clickable="false"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -52,8 +61,8 @@
 
             <TextView
                 android:id="@+id/receiptCategoryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="All Receipts"
                 android:textAlignment="center"
                 android:fontFamily="@font/roboto"
@@ -74,13 +83,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:padding="5dp"
-                android:background="@drawable/round_white_bg_circle">
+                android:background="@drawable/round_white_bg_circle"
+                android:clickable="true"
+                android:id="@+id/addReceiptButton">
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/add_icon"/>
+                    android:src="@drawable/add_icon"
+                    android:clickable="false"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -124,13 +136,16 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:clickable="true"
+                android:id="@+id/searchButton">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/seach_icon"
+                    android:clickable="false"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
@@ -143,6 +158,7 @@
                 android:layout_marginBottom="2.5dp">
 
                 <EditText
+                    android:id="@+id/searchQueryEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -153,14 +169,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/cancelSearchButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:clickable="true">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
+                    android:clickable="false"
                     android:src="@drawable/clear_search_icon"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"/>
