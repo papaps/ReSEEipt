@@ -8,4 +8,6 @@
     <color name="colorGray2Dark">#636366</color>
     <color name="colorGray3Light">#C7C7CC</color>
     <color name="colorGray3Dark">#48484A</color>
+    <color name="colorGray5Light">#E5E5EA</color>
+    <color name="colorGray5Dark">#2C2C2E</color>
 </resources>
