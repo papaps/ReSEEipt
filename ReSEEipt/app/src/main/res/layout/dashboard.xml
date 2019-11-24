@@ -55,7 +55,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardAllButton">
 
             <ImageView
                 android:id="@+id/AllView"
@@ -63,7 +65,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/all_receipts_asset_min" />
+                app:srcCompat="@drawable/all_receipts_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/AllText"
@@ -72,14 +75,17 @@
                 android:layout_height="wrap_content"
                 android:text="All Receipts"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:clickable="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardMealButton">
 
             <ImageView
                 android:id="@+id/MealsView"
@@ -87,7 +93,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/meal_asset_min" />
+                app:srcCompat="@drawable/meal_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/MealsText"
@@ -97,7 +104,8 @@
                 android:scaleType="fitCenter"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -111,7 +119,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardGroceryButton">
 
             <ImageView
                 android:id="@+id/GroceryView"
@@ -119,7 +129,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/grocery_asset_min" />
+                app:srcCompat="@drawable/grocery_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/GroceryText"
@@ -128,14 +139,17 @@
                 android:text="Grocery"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardShoppingButton">
 
             <ImageView
                 android:id="@+id/ShoppingView"
@@ -143,7 +157,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/shopping_asset_min" />
+                app:srcCompat="@drawable/shopping_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/ShoppingText"
@@ -152,7 +167,8 @@
                 android:text="Shopping"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -166,7 +182,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardUtilitiesButton">
 
             <ImageView
                 android:id="@+id/UtilitiesView"
@@ -174,7 +192,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/utilities_asset_min" />
+                app:srcCompat="@drawable/utilities_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/UtilitiesText"
@@ -183,14 +202,17 @@
                 android:text="Utilities"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardAppliancesButton">
 
             <ImageView
                 android:id="@+id/AppliancesView"
@@ -198,7 +220,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/appliance_asset_min" />
+                app:srcCompat="@drawable/appliance_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/AppliancesText"
@@ -207,7 +230,8 @@
                 android:text="Appliances"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -221,7 +245,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardGadgetsButton">
 
             <ImageView
                 android:id="@+id/GadgetsView"
@@ -229,7 +255,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/gadget_asset_min" />
+                app:srcCompat="@drawable/gadget_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/GadgetsText"
@@ -238,14 +265,17 @@
                 android:text="Gadgets"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:id="@+id/dashboardOthersButton">
 
             <ImageView
                 android:id="@+id/OthersView"
@@ -253,7 +283,8 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/others_asset_min" />
+                app:srcCompat="@drawable/others_asset_min"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/OthersText"
@@ -262,7 +293,8 @@
                 android:text="Others"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

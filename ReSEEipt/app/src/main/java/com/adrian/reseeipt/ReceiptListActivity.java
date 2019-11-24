@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
+
 public class ReceiptListActivity extends AppCompatActivity {
 
     public static final int REQUEST_ADD_RECEIPT = 10;
@@ -20,6 +22,8 @@ public class ReceiptListActivity extends AppCompatActivity {
     private TextView receiptCategoryText;
     private TextView resultsCountText;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,16 @@ public class ReceiptListActivity extends AppCompatActivity {
         backToDashboardButton = findViewById(R.id.backToDashboardButton);
         receiptCategoryText = findViewById(R.id.receiptCategoryText);
         resultsCountText = findViewById(R.id.resultsCountText);
+
+        intent = getIntent();
+
+        String category = intent.getStringExtra(MainDashboardActivity.INTENT_CATEGORY);
+
+        if (category.equals(ReceiptCategoryConstants.ALL)){
+            receiptCategoryText.setText("All Receipts");
+        } else {
+            receiptCategoryText.setText(category);
+        }
 
         backToDashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
