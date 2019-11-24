@@ -323,6 +323,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    // Get All Receipts by Search Query
+    public ArrayList<Receipt> getAllReceiptByQueryCategory(String query, String category){
+        ArrayList<Receipt> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectAll = "SELECT * FROM " + DatabaseConstants.RECEIPTS_TABLE_NAME + " WHERE " + DatabaseConstants.RECEIPTS_KEY_TITLE + " LIKE '%" + query + "%'"
+                +" AND " + DatabaseConstants.RECEIPTS_KEY_CATEGORY + " = '" + category + "'";
+        Cursor cursor = db.rawQuery(selectAll, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Receipt receipt = new Receipt();
+                receipt.setReceiptID(Integer.parseInt(cursor.getString(0)));
+                receipt.setTitle(cursor.getString(1));
+                receipt.setNotes(cursor.getString(2));
+                receipt.setCategories(cursor.getString(3));
+                receipt.setDateAdded(cursor.getString(4));
+                receipt.setImages(getReceiptImages(Integer.parseInt(cursor.getString(0))));
+                //add contact objects to our list
+                list.add(receipt);
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
+
     // Edit a receipt
     public int updateReceipt(Receipt receipt){
         SQLiteDatabase db = this.getWritableDatabase();
