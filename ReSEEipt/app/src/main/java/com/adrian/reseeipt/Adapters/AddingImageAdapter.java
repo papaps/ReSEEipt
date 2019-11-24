@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.adrian.reseeipt.Database.DatabaseUtil;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,10 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
     @Override
     public void onBindViewHolder(@NonNull AddingImageAdapter.AddingImageViewHolder holder, int position) {
         ReceiptImage receiptImage = itemList.get(position);
-        holder.imageView.setImageBitmap(DatabaseUtil.getImage(receiptImage.getImageBytes()));
+        Glide.with(context)
+                .asBitmap()
+                .load(receiptImage.getImageBytes())
+                .into(holder.imageView);
     }
 
     @Override

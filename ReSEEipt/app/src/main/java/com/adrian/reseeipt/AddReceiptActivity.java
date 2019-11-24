@@ -124,7 +124,7 @@ public class AddReceiptActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                Glide.with(this).load(selectedImageUri).into(ivImage);
+                //Glide.with(this).load(selectedImageUri).into(ivImage);
                 //ivImage.setImageURI(selectedImageUri);
 
             }
