@@ -94,13 +94,8 @@ public class AddReceiptActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String errorMessage = validateFields();
-                if (errorMessage.equals("Okay")){
-
-
-                } else {
-                    addReceiptErrorText.setText(errorMessage);
-                }
+                setResult(ReceiptListActivity.RESULT_CANCELLED);
+                finish();
             }
         });
 
@@ -108,7 +103,14 @@ public class AddReceiptActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                String errorMessage = validateFields();
+                if (errorMessage.equals("Okay")){
 
+                    setResult(ReceiptListActivity.RESULT_SAVED);
+                    finish();
+                } else {
+                    addReceiptErrorText.setText(errorMessage);
+                }
             }
         });
     }
