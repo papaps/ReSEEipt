@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import com.adrian.reseeipt.Adapters.AddingImageAdapter;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
 import com.adrian.reseeipt.Database.DatabaseUtil;
+import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -41,6 +43,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
@@ -109,9 +112,15 @@ public class AddReceiptActivity extends AppCompatActivity {
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                             intent.setType("image/*");
-                            //startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                            startActivityForResult(intent, SELECT_FILE);
+                            startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+                            //startActivityForResult(intent, SELECT_FILE);
                         }
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        intent.setType("image/*");
+                        startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+                        //startActivityForResult(intent, SELECT_FILE);
                     }
 
 //                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -151,8 +160,8 @@ public class AddReceiptActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setType("image/*");
-            //startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-            startActivityForResult(intent, SELECT_FILE);
+            startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+//            startActivityForResult(intent, SELECT_FILE);
         }
     }
 
@@ -171,22 +180,72 @@ public class AddReceiptActivity extends AppCompatActivity {
                 adapter.addAnotherImage(ri);
 
             }else if(requestCode==SELECT_FILE){
+// Get the Image from data
+                //https://stackoverflow.com/questions/19585815/select-multiple-images-from-android-gallery
 
-                Uri selectedImageUri = data.getData();
-                try {
-                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    ReceiptImage ri = new ReceiptImage();
-                    ri.setImageBytes(DatabaseUtil.getBytes(bitmap));
-                    adapter.addAnotherImage(ri);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                ArrayList<Uri> uriList = new ArrayList<>();
+
+                if(data.getClipData() != null){
+
+                    int count = data.getClipData().getItemCount();
+                    for (int i=0; i<count; i++){
+
+                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        uriList.add(imageUri);
+                    }
+
+                    try {
+                        adapter.addMultipleImages(getImages(uriList));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+                else if(data.getData() != null){
+
+                    Uri imgUri = data.getData();
+
+                    try {
+                        final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
+                        ReceiptImage ri = new ReceiptImage();
+                        ri.setImageBytes(DatabaseUtil.getBytes(bitmap));
+                        adapter.addAnotherImage(ri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+//                Uri selectedImageUri = data.getData();
+//                try {
+//                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+//                    ReceiptImage ri = new ReceiptImage();
+//                    ri.setImageBytes(DatabaseUtil.getBytes(bitmap));
+//                    adapter.addAnotherImage(ri);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 //Glide.with(this).load(selectedImageUri).into(ivImage);
                 //ivImage.setImageURI(selectedImageUri);
 
             }
 
         }
+    }
+
+    public ArrayList<ReceiptImage> getImages(ArrayList<Uri> imageURIs) throws Exception {
+        ArrayList<ReceiptImage> images = new ArrayList<>();
+        Bitmap bmp = null;
+
+        for(int i = 0; i < imageURIs.size(); i++){
+            Uri uri = imageURIs.get(i);
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                ReceiptImage ri = new ReceiptImage();
+                ri.setImageBytes(DatabaseUtil.getBytes(bmp));
+                images.add(ri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return images;
     }
 
 }

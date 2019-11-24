@@ -62,6 +62,16 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         notifyItemInserted(itemList.size()-1);
     }
 
+    public void addMultipleImages(ArrayList<ReceiptImage> images){
+        int last = itemList.size()-1;
+        if (itemList.contains(placeholder)){
+            itemList.remove(placeholder);
+            notifyItemRemoved(0);
+        }
+        itemList.addAll(images);
+        notifyItemRangeChanged(last, images.size());
+    }
+
     public class AddingImageViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
