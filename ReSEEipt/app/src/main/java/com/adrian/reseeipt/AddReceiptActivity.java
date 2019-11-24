@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -43,6 +46,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,9 +59,13 @@ public class AddReceiptActivity extends AppCompatActivity {
     Button addReceiptAddImageButton, addReceiptCancelButton, addReceiptAddButton;
     EditText addReceiptTitleEditText, addReceiptNotesEditText;
 
-    private ArrayList<String> mImageUrls = new ArrayList<>();
-    ArrayList<String> temp = new ArrayList<>();
+    //ARRAYLIST OF IMAGES WITH EACH IMAGE IN BYTE[]
+    ArrayList<byte[]> Images = new ArrayList<>();
 
+    //THIS ONE HOLDS ALL THE IMAGE URLS UPLOADED VIA CAMERA OR GALLERY
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    ArrayList<String> temp = new ArrayList<>();
     String imageEncoded;
     List<String> imagesEncodedList;
 
@@ -83,6 +91,19 @@ public class AddReceiptActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+
+        addReceiptAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Images = getImages(mImageUrls);
+                    Toast toast = Toast.makeText(getApplicationContext(),"byte[] images added",Toast. LENGTH_SHORT);
+                    toast.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -222,6 +243,39 @@ public class AddReceiptActivity extends AppCompatActivity {
             }
         }
         return path;
+    }
+
+    //https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+    public ArrayList<byte[]> getImages(ArrayList<String> imageURLs) throws Exception {
+        ArrayList<byte[]> images = new ArrayList<>();
+        Bitmap bmp = null;
+        byte[] byteArray;
+
+        for(int i = 0; i < imageURLs.size(); i++){
+            bmp = getBitmap(imageURLs.get(i));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+            bmp.recycle();
+            images.add(byteArray);
+        }
+        return images;
+    }
+
+    //https://stackoverflow.com/questions/32088022/android-get-image-to-bitmap-from-filepath/45998238
+    public Bitmap getBitmap(String path) {
+        try {
+            Bitmap bitmap=null;
+            File f= new File(path);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void initRecyclerView(){
