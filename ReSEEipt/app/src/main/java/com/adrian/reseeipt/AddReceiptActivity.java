@@ -8,8 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.adrian.reseeipt.Adapters.AddingImageAdapter;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
+import com.adrian.reseeipt.Database.DatabaseUtil;
+import com.adrian.reseeipt.Model.ReceiptImage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -22,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.View;
@@ -35,29 +40,25 @@ import java.io.IOException;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
-    ImageView ivImage;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
-    Spinner categorySpinner;
-    Button addReceiptAddImageButton, addReceiptCancelButton, addReceiptAddButton;
-    EditText addReceiptTitleEditText, addReceiptNotesEditText;
+    Button addReceiptAddImageButton;
+
+    RecyclerView recyclerView;
+    AddingImageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receipt);
 
-        ivImage = findViewById(R.id.ivImage);
-        categorySpinner = findViewById(R.id.categorySpinner);
         addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
-        addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
-        addReceiptAddButton = findViewById(R.id.addReceiptAddButton);
-        addReceiptTitleEditText = findViewById(R.id.addReceiptTitleEditText);
-        addReceiptNotesEditText = findViewById(R.id.addReceiptNotesEditText);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, ReceiptCategoryConstants.getCategories());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
+        recyclerView = findViewById(R.id.addImageRecyclerView);
+        adapter = new AddingImageAdapter(this);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
 
         addReceiptAddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,18 +109,24 @@ public class AddReceiptActivity extends AppCompatActivity {
 
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                ivImage.setImageBitmap(bmp);
+                ReceiptImage ri = new ReceiptImage();
+                ri.setImageBytes(DatabaseUtil.getBytes(bmp));
+                adapter.addAnotherImage(ri);
 
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectedImageUri = data.getData();
                 try {
                     final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    ReceiptImage ri = new ReceiptImage();
+                    ri.setImageBytes(DatabaseUtil.getBytes(bitmap));
+                    adapter.addAnotherImage(ri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(this).load(selectedImageUri).into(ivImage);
+//                Glide.with(this).load(selectedImageUri).into(ivImage);
                 //ivImage.setImageURI(selectedImageUri);
+
             }
 
         }
