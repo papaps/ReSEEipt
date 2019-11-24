@@ -40,6 +40,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -49,6 +50,10 @@ public class AddReceiptActivity extends AppCompatActivity {
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Button addReceiptAddImageButton;
+    Spinner addReceiptCategorySpinner;
+    EditText addReceiptTitleEditText, addReceiptNotesEditText;
+    Button addReceiptCancelButton, addReceiptSaveButton;
+    TextView addReceiptErrorText;
 
     RecyclerView recyclerView;
     AddingImageAdapter adapter;
@@ -58,7 +63,18 @@ public class AddReceiptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receipt);
 
+        addReceiptTitleEditText = findViewById(R.id.addReceiptTitleEditText);
+        addReceiptNotesEditText = findViewById(R.id.addReceiptNotesEditText);
+        addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
+        addReceiptSaveButton = findViewById(R.id.addReceiptSaveButton);
+        addReceiptErrorText = findViewById(R.id.addReceiptErrorText);
+
         addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
+        addReceiptCategorySpinner = findViewById(R.id.addCategorySpinner);
+        ArrayAdapter<String> ARRadapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, ReceiptCategoryConstants.getCategories());
+        ARRadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        addReceiptCategorySpinner.setAdapter(ARRadapter);
 
         recyclerView = findViewById(R.id.addImageRecyclerView);
         adapter = new AddingImageAdapter(this);
@@ -71,6 +87,28 @@ public class AddReceiptActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+
+        addReceiptCancelButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String errorMessage = validateFields();
+                if (errorMessage.equals("Okay")){
+
+
+                } else {
+                    addReceiptErrorText.setText(errorMessage);
+                }
+            }
+        });
+
+        addReceiptSaveButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -246,6 +284,17 @@ public class AddReceiptActivity extends AppCompatActivity {
             }
         }
         return images;
+    }
+
+    private String validateFields(){
+        String answer = "Okay";
+
+
+        if (addReceiptTitleEditText.getText().toString().isEmpty()){
+            answer = "Missing Fields";
+        }
+
+        return answer;
     }
 
 }
