@@ -25,7 +25,9 @@
                 android:src="@drawable/multiple_icon"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:id="@+id/multipleImagesIcon"
+                android:visibility="visible"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
