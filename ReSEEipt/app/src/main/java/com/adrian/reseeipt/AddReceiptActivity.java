@@ -121,10 +121,11 @@ public class AddReceiptActivity extends AppCompatActivity {
                     receipt.setDateAdded(date.getTime()+"");
 
                     int newID = databaseHandler.addReceipt(receipt);
-                    ArrayList<ReceiptImage> riList = adapter.getFinalImages();
+                    ArrayList<byte[]> riList = adapter.getFinalImages();
 
-                    for (ReceiptImage ri: riList){
-                        ri.setReceiptID(newID);
+                    for (byte[] bts: riList){
+                        String path = DatabaseUtil.saveToInternalStorage(DatabaseUtil.getImage(bts), getApplicationContext());
+                        ReceiptImage ri = new ReceiptImage(newID, path);
                         databaseHandler.addImage(ri);
                     }
 
@@ -237,9 +238,7 @@ public class AddReceiptActivity extends AppCompatActivity {
 
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                ReceiptImage ri = new ReceiptImage();
-                ri.setImageBytes(DatabaseUtil.getBytes(bmp));
-                adapter.addAnotherImage(ri);
+                adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
 
             }else if(requestCode==SELECT_FILE){
 // Get the Image from data
@@ -268,9 +267,7 @@ public class AddReceiptActivity extends AppCompatActivity {
 
                     try {
                         final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
-                        ReceiptImage ri = new ReceiptImage();
-                        ri.setImageBytes(DatabaseUtil.getBytes(bitmap));
-                        adapter.addAnotherImage(ri);
+                        adapter.addAnotherImage(DatabaseUtil.getBytes(bitmap));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -292,17 +289,15 @@ public class AddReceiptActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<ReceiptImage> getImages(ArrayList<Uri> imageURIs) throws Exception {
-        ArrayList<ReceiptImage> images = new ArrayList<>();
+    public ArrayList<byte[]> getImages(ArrayList<Uri> imageURIs) throws Exception {
+        ArrayList<byte[]> images = new ArrayList<>();
         Bitmap bmp = null;
 
         for(int i = 0; i < imageURIs.size(); i++){
             Uri uri = imageURIs.get(i);
             try {
                 bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                ReceiptImage ri = new ReceiptImage();
-                ri.setImageBytes(DatabaseUtil.getBytes(bmp));
-                images.add(ri);
+                images.add(DatabaseUtil.getBytes(bmp));
             } catch (IOException e) {
                 e.printStackTrace();
             }

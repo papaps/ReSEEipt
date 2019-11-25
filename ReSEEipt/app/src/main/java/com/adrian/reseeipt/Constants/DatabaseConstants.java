@@ -29,6 +29,8 @@ public class DatabaseConstants {
     public static final String IMAGES_TABLE_NAME = "receipt_images";
     public static final String IMAGES_KEY_ID = "image_id";
     public static final String IMAGES_KEY_RECEIPT = "receipt_id";
-    public static final String IMAGES_KEY_BYTES = "image_bytes";
+    public static final String IMAGES_KEY_BYTES = "image_path";
+
+    public static final String STORAGE_DIRECTORY = "imageDir";
 
 }

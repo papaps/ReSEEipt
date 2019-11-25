@@ -5,19 +5,19 @@ import android.graphics.Bitmap;
 public class ReceiptImage {
     private int imageID;
     private int receiptID;
-    private byte[] imageBytes;
+    private String imagePath;
 
     // Use this constructor when retrieving objects from database and converting it into objects
-    public ReceiptImage(int imageID, int receiptID, byte[] imageBytes) {
+    public ReceiptImage(int imageID, int receiptID, String imagePath) {
         this.imageID = imageID;
         this.receiptID = receiptID;
-        this.imageBytes = imageBytes;
+        this.imagePath = imagePath;
     }
 
     // Use this constructor when adding new image objects
-    public ReceiptImage(int receiptID, byte[] imageBytes) {
+    public ReceiptImage(int receiptID, String imagePath) {
         this.receiptID = receiptID;
-        this.imageBytes = imageBytes;
+        this.imagePath = imagePath;
     }
 
     public ReceiptImage(){
@@ -40,11 +40,11 @@ public class ReceiptImage {
         this.receiptID = receiptID;
     }
 
-    public byte[] getImageBytes() {
-        return imageBytes;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

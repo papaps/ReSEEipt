@@ -21,14 +21,12 @@ import java.util.List;
 
 public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.AddingImageViewHolder> {
     private Context context;
-    private List<ReceiptImage> itemList = new ArrayList<>();
-    private ReceiptImage placeholder;
+    private List<byte[]> itemList = new ArrayList<>();
+    private byte[] placeholder;
 
     public AddingImageAdapter(Context context) {
         this.context = context;
-        byte[] stuff = DatabaseUtil.getBytes(BitmapFactory.decodeResource(context.getResources(), R.drawable.reseept_profile_blue_min));
-        placeholder = new ReceiptImage();
-        placeholder.setImageBytes(stuff);
+        placeholder = DatabaseUtil.getBytes(BitmapFactory.decodeResource(context.getResources(), R.drawable.reseept_profile_blue_min));
         itemList.add(placeholder);
     }
 
@@ -42,10 +40,9 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AddingImageAdapter.AddingImageViewHolder holder, int position) {
-        ReceiptImage receiptImage = itemList.get(position);
         Glide.with(context)
                 .asBitmap()
-                .load(receiptImage.getImageBytes())
+                .load(itemList.get(position))
                 .into(holder.imageView);
     }
 
@@ -54,8 +51,8 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         return itemList.size();
     }
 
-    public void addAnotherImage(ReceiptImage receiptImage){
-        itemList.add(receiptImage);
+    public void addAnotherImage(byte[] bytes){
+        itemList.add(bytes);
         if (itemList.contains(placeholder)){
             itemList.remove(placeholder);
             notifyItemRemoved(0);
@@ -63,7 +60,7 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         notifyItemInserted(itemList.size()-1);
     }
 
-    public void addMultipleImages(ArrayList<ReceiptImage> images){
+    public void addMultipleImages(ArrayList<byte[]> images){
         int last = itemList.size()-1;
         if (itemList.contains(placeholder)){
             itemList.remove(placeholder);
@@ -73,7 +70,7 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         notifyItemRangeChanged(last, images.size());
     }
 
-    public ArrayList<ReceiptImage> getFinalImages(){
+    public ArrayList<byte[]> getFinalImages(){
         return new ArrayList<>(itemList);
     }
 

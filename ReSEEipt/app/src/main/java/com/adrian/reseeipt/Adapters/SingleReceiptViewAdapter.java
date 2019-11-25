@@ -40,7 +40,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
     public void onBindViewHolder(@NonNull SingleReceiptViewAdapter.SingleReceiptViewHolder holder, int position) {
         Receipt receipt = itemList.get(position);
         holder.individualReceiptOneTitle.setText(receipt.getTitle());
-        holder.individualReceiptOneImage.setImageBitmap(DatabaseUtil.getImage(receipt.getImages().get(0).getImageBytes()));
+        holder.individualReceiptOneImage.setImageBitmap(DatabaseUtil.loadImageFromStorage(receipt.getImages().get(0).getImagePath()));
         if (receipt.getImages().size() == 1){
             holder.multipleImagesIcon.setVisibility(View.GONE);
         }

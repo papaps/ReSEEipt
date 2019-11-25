@@ -7,7 +7,7 @@
     tools:context=".RegisterSecurityActivity">
 
     <TextView
-        android:id="@+id/TopText"
+        android:id="@+id/securityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
@@ -46,7 +46,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/questionLabel"
+                    android:id="@+id/question1Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -60,7 +60,7 @@
                     android:background="@drawable/rounded_inputs_half">
 
                     <Spinner
-                        android:id="@+id/questionSpinner"
+                        android:id="@+id/question1Spinner"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -92,7 +92,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/answerLabel"
+                    android:id="@+id/answer1Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -101,13 +101,13 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/answerField"
+                    android:id="@+id/answer1Field"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="0dp"
                     android:background="@drawable/rounded_inputs_half"
                     android:ems="10"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:text=""
@@ -192,7 +192,7 @@
                     android:layout_marginStart="0dp"
                     android:background="@drawable/rounded_inputs_half"
                     android:ems="10"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:text=""

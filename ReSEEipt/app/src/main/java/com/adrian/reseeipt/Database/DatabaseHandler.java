@@ -55,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " ( " +
                 DatabaseConstants.IMAGES_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DatabaseConstants.IMAGES_KEY_RECEIPT + " TEXT NOT NULL, " +
-                DatabaseConstants.IMAGES_KEY_BYTES+ " BLOB " +
+                DatabaseConstants.IMAGES_KEY_BYTES+ " TEXT NOT NULL  " +
                 " ); ";
         db.execSQL(CREATE_RECEIPT_IMAGE_TABLE);
     }
@@ -371,7 +371,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.IMAGES_KEY_RECEIPT, receiptImage.getReceiptID());
-        values.put(DatabaseConstants.IMAGES_KEY_BYTES, receiptImage.getImageBytes()); // Get the bytes version
+        values.put(DatabaseConstants.IMAGES_KEY_BYTES, receiptImage.getImagePath()); // Get the bytes version
 
         // Insert to row
         db.insert(DatabaseConstants.IMAGES_TABLE_NAME, null, values);
@@ -392,7 +392,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ReceiptImage receiptImage = new ReceiptImage();
                 receiptImage.setImageID(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_ID))));
                 receiptImage.setReceiptID(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_RECEIPT))));
-                receiptImage.setImageBytes(cursor.getBlob(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_BYTES)));
+                receiptImage.setImagePath(cursor.getString(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_BYTES)));
 
                 //add contact objects to our list
                 list.add(receiptImage);

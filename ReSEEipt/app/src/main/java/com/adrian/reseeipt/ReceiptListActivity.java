@@ -62,6 +62,8 @@ public class ReceiptListActivity extends AppCompatActivity {
             receiptList = databaseHandler.getAllReceiptByCategory(category);
         }
 
+        setResultCount();
+
         recyclerView = findViewById(R.id.receiptListRecyclerView);
         adapter = new SingleReceiptViewAdapter(this, receiptList);
         recyclerView.setAdapter(adapter);
@@ -101,9 +103,20 @@ public class ReceiptListActivity extends AppCompatActivity {
                     receiptList = databaseHandler.getAllReceiptByCategory(category);
                     adapter.setItemList(receiptList);
                 }
+
+                setResultCount();
             } else if (resultCode == RESULT_CANCELLED) {
 
             }
+        }
+    }
+
+    private void setResultCount(){
+        int count = receiptList.size();
+        if (count == 1){
+            resultsCountText.setText(count + " Receipt Found");
+        } else {
+            resultsCountText.setText(count + " Receipts Found");
         }
     }
 }
