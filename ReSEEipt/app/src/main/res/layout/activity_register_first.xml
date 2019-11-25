@@ -124,7 +124,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/passwordField"
+                    android:id="@+id/FirstNameField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="0dp"
@@ -155,7 +155,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/confirmPasswordLabel"
+                    android:id="@+id/LastNameLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -164,7 +164,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/confirmPasswordField"
+                    android:id="@+id/LastNameField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="0dp"

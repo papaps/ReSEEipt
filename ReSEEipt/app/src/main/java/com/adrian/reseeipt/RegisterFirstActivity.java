@@ -27,8 +27,8 @@ public class RegisterFirstActivity extends AppCompatActivity {
 
         firstNameField = findViewById(R.id.firstNameField);
         lastNameField = findViewById(R.id.lastNameField);
-        passwordField = findViewById(R.id.passwordField);
-        confirmPasswordField = findViewById(R.id.confirmPasswordField);
+        passwordField = findViewById(R.id.FirstNameField);
+        confirmPasswordField = findViewById(R.id.LastNameField);
         registerFirstCancelButton = findViewById(R.id.registerFirstCancelButton);
         registerFirstNextButton = findViewById(R.id.registerFirstNextButton);
         registerFirstErrorText = findViewById(R.id.registerFirstErrorTextLabel);
