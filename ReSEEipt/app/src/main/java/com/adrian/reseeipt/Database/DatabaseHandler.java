@@ -384,14 +384,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectAll = "SELECT * FROM " + DatabaseConstants.IMAGES_TABLE_NAME + " WHERE " + DatabaseConstants.IMAGES_KEY_RECEIPT + " = " + receiptID;
+        System.out.println(selectAll);
         Cursor cursor = db.rawQuery(selectAll, null);
 
         if (cursor.moveToFirst()) {
             do {
                 ReceiptImage receiptImage = new ReceiptImage();
-                receiptImage.setImageID(Integer.parseInt(cursor.getString(0)));
-                receiptImage.setReceiptID(Integer.parseInt(cursor.getString(1)));
-                receiptImage.setImageBytes(cursor.getBlob(2));
+                receiptImage.setImageID(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_ID))));
+                receiptImage.setReceiptID(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_RECEIPT))));
+                receiptImage.setImageBytes(cursor.getBlob(cursor.getColumnIndex(DatabaseConstants.IMAGES_KEY_BYTES)));
 
                 //add contact objects to our list
                 list.add(receiptImage);

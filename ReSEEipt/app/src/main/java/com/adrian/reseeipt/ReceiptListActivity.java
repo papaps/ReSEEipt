@@ -1,6 +1,8 @@
 package com.adrian.reseeipt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Adapters.SingleReceiptViewAdapter;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
+import com.adrian.reseeipt.Database.DatabaseHandler;
+import com.adrian.reseeipt.Model.Receipt;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReceiptListActivity extends AppCompatActivity {
 
@@ -24,6 +32,12 @@ public class ReceiptListActivity extends AppCompatActivity {
 
     Intent intent;
 
+    RecyclerView recyclerView;
+    SingleReceiptViewAdapter adapter;
+    List<Receipt> receiptList = new ArrayList<>();
+    DatabaseHandler databaseHandler;
+    String category;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +47,27 @@ public class ReceiptListActivity extends AppCompatActivity {
         backToDashboardButton = findViewById(R.id.backToDashboardButton);
         receiptCategoryText = findViewById(R.id.receiptCategoryText);
         resultsCountText = findViewById(R.id.resultsCountText);
+        databaseHandler = new DatabaseHandler(this);
 
         intent = getIntent();
 
-        String category = intent.getStringExtra(MainDashboardActivity.INTENT_CATEGORY);
+        category = intent.getStringExtra(MainDashboardActivity.INTENT_CATEGORY);
 
         if (category.equals(ReceiptCategoryConstants.ALL)){
             receiptCategoryText.setText("All Receipts");
+            receiptList = databaseHandler.getAllReceipt();
+
         } else {
             receiptCategoryText.setText(category);
+            receiptList = databaseHandler.getAllReceiptByCategory(category);
         }
+
+        recyclerView = findViewById(R.id.receiptListRecyclerView);
+        adapter = new SingleReceiptViewAdapter(this, receiptList);
+        recyclerView.setAdapter(adapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
 
         backToDashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +94,13 @@ public class ReceiptListActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_ADD_RECEIPT){
             if (resultCode == RESULT_SAVED){
-
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceipt();
+                    adapter.setItemList(receiptList);
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                    adapter.setItemList(receiptList);
+                }
             } else if (resultCode == RESULT_CANCELLED) {
 
             }

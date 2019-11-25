@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
     android:weightSum="10">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_weight="8"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -16,7 +20,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="center"
+                android:scaleType="fitCenter"
                 android:id="@+id/individualReceiptOneImage"/>
 
             <ImageView
@@ -34,12 +38,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:text="Title"
         android:id="@+id/individualReceiptOneTitle"
         android:textAlignment="center"
         android:gravity="center_vertical"
         android:maxLines="1"
+        android:textColor="@color/colorGray5Dark"
+        android:fontFamily="@font/roboto"
+        android:textFontWeight="300"
         android:ellipsize="end"/>
 
 </LinearLayout>

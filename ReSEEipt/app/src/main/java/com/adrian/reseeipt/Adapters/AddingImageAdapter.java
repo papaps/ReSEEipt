@@ -15,6 +15,7 @@ import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
 import com.bumptech.glide.Glide;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,10 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         }
         itemList.addAll(images);
         notifyItemRangeChanged(last, images.size());
+    }
+
+    public ArrayList<ReceiptImage> getFinalImages(){
+        return new ArrayList<>(itemList);
     }
 
     public class AddingImageViewHolder extends RecyclerView.ViewHolder {

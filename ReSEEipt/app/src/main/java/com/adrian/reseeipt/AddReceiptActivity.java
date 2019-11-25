@@ -15,6 +15,7 @@ import android.os.Bundle;
 import com.adrian.reseeipt.Adapters.AddingImageAdapter;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
+import com.adrian.reseeipt.Database.DatabaseHandler;
 import com.adrian.reseeipt.Database.DatabaseUtil;
 import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
@@ -44,7 +45,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
@@ -57,6 +60,7 @@ public class AddReceiptActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     AddingImageAdapter adapter;
+    DatabaseHandler databaseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,8 @@ public class AddReceiptActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        databaseHandler = new DatabaseHandler(this);
+
 
         addReceiptAddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +111,22 @@ public class AddReceiptActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String errorMessage = validateFields();
                 if (errorMessage.equals("Okay")){
+                    addReceiptErrorText.setText("");
+
+                    Receipt receipt = new Receipt();
+                    receipt.setCategories(addReceiptCategorySpinner.getSelectedItem().toString());
+                    receipt.setNotes(addReceiptNotesEditText.getText().toString());
+                    receipt.setTitle(addReceiptTitleEditText.getText().toString());
+                    Date date = new Date();
+                    receipt.setDateAdded(date.getTime()+"");
+
+                    int newID = databaseHandler.addReceipt(receipt);
+                    ArrayList<ReceiptImage> riList = adapter.getFinalImages();
+
+                    for (ReceiptImage ri: riList){
+                        ri.setReceiptID(newID);
+                        databaseHandler.addImage(ri);
+                    }
 
                     setResult(ReceiptListActivity.RESULT_SAVED);
                     finish();

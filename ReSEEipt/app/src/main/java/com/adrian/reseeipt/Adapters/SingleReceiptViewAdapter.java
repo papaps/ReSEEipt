@@ -51,6 +51,11 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
         return itemList.size();
     }
 
+    public void setItemList(List<Receipt> itemList) {
+        this.itemList = itemList;
+        notifyDataSetChanged();
+    }
+
     public class SingleReceiptViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView individualReceiptOneTitle;
