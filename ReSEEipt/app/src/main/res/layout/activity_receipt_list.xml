@@ -221,7 +221,7 @@
                 android:layout_weight="8">
 
                 <Spinner
-                    android:id="@+id/question1Spinner"
+                    android:id="@+id/questionSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
