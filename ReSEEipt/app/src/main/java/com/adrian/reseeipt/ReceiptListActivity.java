@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.adrian.reseeipt.Adapters.SingleReceiptViewAdapter;
+import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
 import com.adrian.reseeipt.Model.Receipt;
@@ -26,6 +27,10 @@ public class ReceiptListActivity extends AppCompatActivity {
     public static final int REQUEST_ADD_RECEIPT = 10;
     public static final int RESULT_SAVED = 11;
     public static final int RESULT_CANCELLED = 12;
+
+    public static final int REQUEST_VIEW_RECEIPT = 13;
+    public static final int RESULT_VIEW_SAVED = 14;
+    public static final int RESULT_VIEW_BACKED = 15;
 
     private LinearLayout addReceiptButton;
     private LinearLayout backToDashboardButton;
@@ -161,6 +166,14 @@ public class ReceiptListActivity extends AppCompatActivity {
         } else {
             resultsCountText.setText(count + " Receipts Found");
         }
+    }
+
+    public void openViewDetails(View view){
+        int id = (int) view.getTag();
+
+        Intent intent = new Intent (this, EditReceiptActivity.class);
+        intent.putExtra(IntentConstants.INTNT_CURRENT_RECEIPT_VIEW, id);
+        startActivityForResult(intent, REQUEST_VIEW_RECEIPT);
     }
 
 

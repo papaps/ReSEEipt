@@ -46,6 +46,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
     public void onBindViewHolder(@NonNull SingleReceiptViewAdapter.SingleReceiptViewHolder holder, int position) {
         Receipt receipt = itemList.get(position);
         holder.individualReceiptOneTitle.setText(receipt.getTitle());
+        holder.setHolderQuizID(receipt.getReceiptID());
         holder.individualReceiptOneImage.setImageBitmap(DatabaseUtil.loadImageFromStorage(receipt.getImages().get(0).getImagePath()));
         if (receipt.getImages().size() == 1){
             holder.multipleImagesIcon.setVisibility(View.GONE);
@@ -135,6 +136,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
         notifyDataSetChanged();
     }
 
+
     public class SingleReceiptViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView individualReceiptOneTitle;
@@ -147,6 +149,10 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
             individualReceiptOneTitle = itemView.findViewById(R.id.individualReceiptOneTitle);
             individualReceiptOneImage = itemView.findViewById(R.id.individualReceiptOneImage);
             multipleImagesIcon = itemView.findViewById(R.id.multipleImagesIcon);
+        }
+
+        public void setHolderQuizID(int id){
+            itemView.setTag(id);
         }
     }
 }
