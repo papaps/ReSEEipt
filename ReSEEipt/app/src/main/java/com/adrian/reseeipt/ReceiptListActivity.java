@@ -31,6 +31,7 @@ public class ReceiptListActivity extends AppCompatActivity {
     public static final int REQUEST_VIEW_RECEIPT = 13;
     public static final int RESULT_VIEW_SAVED = 14;
     public static final int RESULT_VIEW_BACKED = 15;
+    public static final int RESULT_VIEW_DELETED = 16;
 
     private LinearLayout addReceiptButton;
     private LinearLayout backToDashboardButton;
@@ -154,6 +155,13 @@ public class ReceiptListActivity extends AppCompatActivity {
                 setResultCount();
             } else if (resultCode == RESULT_CANCELLED) {
 
+            }
+        } else if (requestCode == REQUEST_VIEW_RECEIPT){
+            if (resultCode== RESULT_VIEW_BACKED){
+
+            } else if (resultCode == RESULT_VIEW_DELETED){
+                int receipt_id = data.getIntExtra(IntentConstants.INTNT_DELETED_RECEIPT, 0);
+                adapter.deleteReceipt(receipt_id);
             }
         }
     }

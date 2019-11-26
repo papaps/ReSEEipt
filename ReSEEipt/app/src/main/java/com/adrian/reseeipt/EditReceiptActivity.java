@@ -1,9 +1,11 @@
 package com.adrian.reseeipt;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -86,6 +88,44 @@ public class EditReceiptActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(ReceiptListActivity.RESULT_VIEW_BACKED);
                 finish();
+            }
+        });
+
+        editReceiptDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder;
+                LayoutInflater inflater;
+                final AlertDialog dialog;
+                builder = new AlertDialog.Builder(EditReceiptActivity.this);
+                inflater = LayoutInflater.from(getApplicationContext());
+                View view = inflater.inflate(R.layout.delete_receipt_confirm, null);
+
+                Button noButton = view.findViewById(R.id.deleteConfNo);
+                Button yesButton = view.findViewById(R.id.deleteConfYes);
+
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                yesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseHandler.deleteReceipt(receipt);
+                        Intent intent = new Intent();
+                        intent.putExtra(IntentConstants.INTNT_DELETED_RECEIPT, receipt.getReceiptID());
+                        setResult(ReceiptListActivity.RESULT_VIEW_DELETED, intent);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+                noButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }

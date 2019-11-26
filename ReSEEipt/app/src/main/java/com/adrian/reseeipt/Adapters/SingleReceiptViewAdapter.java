@@ -136,6 +136,27 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
         notifyDataSetChanged();
     }
 
+    public void deleteReceipt(int receipt_id){
+        int pos = 0;
+
+        for (int i = 0; i < itemList.size(); i++){
+            Receipt r = itemList.get(i);
+            if (r.getReceiptID() == receipt_id)
+                pos = i;
+        }
+        itemList.remove(pos);
+
+        int poss = 0;
+        for (int i = 0; i < itemListOld.size(); i++){
+            Receipt r = itemListOld.get(i);
+            if (r.getReceiptID() == receipt_id)
+                poss = i;
+        }
+        itemListOld.remove(poss);
+
+        notifyItemRemoved(pos);
+    }
+
 
     public class SingleReceiptViewHolder extends RecyclerView.ViewHolder {
 
