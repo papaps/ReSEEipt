@@ -18,6 +18,8 @@ import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceiptViewAdapter.SingleReceiptViewHolder> implements Filterable {
@@ -108,6 +110,29 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
 
     public List<Receipt> getItemList() {
         return itemList;
+    }
+
+    public void sortReceipt(String sortQuery){
+        if (sortQuery.equals("Oldest")){
+            Collections.sort(itemList, new Comparator<Receipt>() {
+                @Override
+                public int compare(Receipt o1, Receipt o2) {
+                    long one = Long.parseLong(o1.getDateAdded());
+                    long two = Long.parseLong(o2.getDateAdded());
+                    return (int) (one-two);
+                }
+            });
+        } else {
+            Collections.sort(itemList, new Comparator<Receipt>() {
+                @Override
+                public int compare(Receipt o1, Receipt o2) {
+                    long one = Long.parseLong(o1.getDateAdded());
+                    long two = Long.parseLong(o2.getDateAdded());
+                    return (int) (two - one);
+                }
+            });
+        }
+        notifyDataSetChanged();
     }
 
     public class SingleReceiptViewHolder extends RecyclerView.ViewHolder {

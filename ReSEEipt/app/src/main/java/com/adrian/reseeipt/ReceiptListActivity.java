@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.adrian.reseeipt.Adapters.SingleReceiptViewAdapter;
@@ -40,6 +42,7 @@ public class ReceiptListActivity extends AppCompatActivity {
     List<Receipt> receiptList = new ArrayList<>();
     DatabaseHandler databaseHandler;
     String category;
+    Spinner sortSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class ReceiptListActivity extends AppCompatActivity {
         searchQueryEditText = findViewById(R.id.searchQueryEditText);
         searchButton = findViewById(R.id.searchButton);
         cancelSearchButton = findViewById(R.id.cancelSearchButton);
+        sortSpinner = findViewById(R.id.sortSpinner);
         databaseHandler = new DatabaseHandler(this);
 
         intent = getIntent();
@@ -112,6 +116,18 @@ public class ReceiptListActivity extends AppCompatActivity {
                 adapter.clearQuery();
                 searchQueryEditText.setText("");
                 setResultCount();
+            }
+        });
+
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                adapter.sortReceipt(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
