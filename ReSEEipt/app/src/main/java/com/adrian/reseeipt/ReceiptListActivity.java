@@ -110,18 +110,27 @@ public class ReceiptListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String query = searchQueryEditText.getText().toString();
-                adapter.searchQuery(query);
-                searchQueryEditText.setText(query);
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceiptByQuery(query);
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByQueryCategory(query, category);
+                }
                 setResultCount();
+                adapter.setItemList(receiptList);
             }
         });
 
         cancelSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.clearQuery();
-                searchQueryEditText.setText("");
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceipt();
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                }
                 setResultCount();
+                searchQueryEditText.setText("");
+                adapter.setItemList(receiptList);
             }
         });
 
@@ -160,15 +169,19 @@ public class ReceiptListActivity extends AppCompatActivity {
             if (resultCode== RESULT_VIEW_BACKED){
 
             } else if (resultCode == RESULT_VIEW_DELETED){
-                int receipt_id = data.getIntExtra(IntentConstants.INTNT_DELETED_RECEIPT, 0);
-                adapter.deleteReceipt(receipt_id);
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceipt();
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                }
+                setResultCount();
+                adapter.setItemList(receiptList);
             }
         }
     }
 
     private void setResultCount(){
-        int count = adapter.getItemCount();
-        System.out.println(count);
+        int count = receiptList.size();
         if (count == 1){
             resultsCountText.setText(count + " Receipt Found");
         } else {

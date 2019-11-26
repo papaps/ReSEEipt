@@ -112,9 +112,7 @@ public class EditReceiptActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         databaseHandler.deleteReceipt(receipt);
-                        Intent intent = new Intent();
-                        intent.putExtra(IntentConstants.INTNT_DELETED_RECEIPT, receipt.getReceiptID());
-                        setResult(ReceiptListActivity.RESULT_VIEW_DELETED, intent);
+                        setResult(ReceiptListActivity.RESULT_VIEW_DELETED);
                         dialog.dismiss();
                         finish();
                     }
