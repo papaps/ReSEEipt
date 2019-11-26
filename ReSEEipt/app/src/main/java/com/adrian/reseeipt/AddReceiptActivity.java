@@ -159,6 +159,9 @@ public class AddReceiptActivity extends AppCompatActivity {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CAMERA);
                     }
 
 //                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
