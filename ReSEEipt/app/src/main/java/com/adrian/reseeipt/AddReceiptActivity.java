@@ -312,8 +312,12 @@ public class AddReceiptActivity extends AppCompatActivity {
         String answer = "Okay";
 
 
-        if (addReceiptTitleEditText.getText().toString().isEmpty()){
+        if (addReceiptTitleEditText.getText().toString().isEmpty() && adapter.containsPlaceholder()){
+            answer = "Missing Fields. At least one (1) image needed.";
+        } else if (addReceiptTitleEditText.getText().toString().isEmpty()){
             answer = "Missing Fields";
+        } else if (adapter.containsPlaceholder()){
+            answer = "At least one (1) image needed";
         }
 
         return answer;

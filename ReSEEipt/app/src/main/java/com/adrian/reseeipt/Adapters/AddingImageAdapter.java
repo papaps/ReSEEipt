@@ -74,15 +74,34 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
         return new ArrayList<>(itemList);
     }
 
+    public boolean containsPlaceholder(){
+        return itemList.contains(placeholder);
+    }
+
     public class AddingImageViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
+        public ImageView addImageClearImage;
 
-        public AddingImageViewHolder(@NonNull View itemView, Context ctx) {
+        public AddingImageViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
             context = ctx;
 
             imageView = itemView.findViewById(R.id.addImageView);
+            addImageClearImage = itemView.findViewById(R.id.addImageClearImage);
+
+            addImageClearImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int removeIndex = getAdapterPosition();
+                    itemList.remove(removeIndex);
+                    notifyItemRemoved(removeIndex);
+                    if (getItemCount() == 0){
+                        itemList.add(placeholder);
+                        notifyItemInserted(0);
+                    }
+                }
+            });
         }
     }
 }
