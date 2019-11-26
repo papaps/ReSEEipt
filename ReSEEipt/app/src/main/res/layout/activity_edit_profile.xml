@@ -128,7 +128,7 @@
         android:background="@drawable/reseept_profile_blue_min" />
 
     <ImageButton
-        android:id="@+id/ReturnButton"
+        android:id="@+id/EditReturnButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
@@ -152,7 +152,7 @@
         app:layout_constraintVertical_bias="0.761">
 
         <Button
-            android:id="@+id/EditAcctButton"
+            android:id="@+id/EditCancelButton"
             android:layout_width="197dp"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
@@ -162,7 +162,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/DeleteAcctButton"
+            android:id="@+id/DeleteConfirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"

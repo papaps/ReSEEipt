@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 
 public class MainDashboardActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class MainDashboardActivity extends AppCompatActivity {
     private LinearLayout dashboardAppliancesButton;
     private LinearLayout dashboardGadgetsButton;
     private LinearLayout dashboardOthersButton;
+    private ImageView profileView;
 
     public static final String INTENT_CATEGORY = "CATEGORY";
 
@@ -35,6 +38,7 @@ public class MainDashboardActivity extends AppCompatActivity {
         dashboardAppliancesButton = findViewById(R.id.dashboardAppliancesButton);
         dashboardGadgetsButton = findViewById(R.id.dashboardGadgetsButton);
         dashboardOthersButton = findViewById(R.id.dashboardOthersButton);
+        profileView = findViewById(R.id.ProfileView);
 
         dashboardAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +93,14 @@ public class MainDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToReceiptList(ReceiptCategoryConstants.OTHERS);
+            }
+        });
+
+        profileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainDashboardActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
     }
