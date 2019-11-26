@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:onClick="openViewDetails">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

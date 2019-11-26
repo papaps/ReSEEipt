@@ -216,7 +216,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Receipt getReceipt (int receipt_id){
         Receipt receipt = new Receipt();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(DatabaseConstants.USERS_TABLE_NAME,
+        Cursor cursor = db.query(DatabaseConstants.RECEIPTS_TABLE_NAME,
                 new String[]{ // get all fields
                         DatabaseConstants.RECEIPTS_KEY_ID,
                         DatabaseConstants.RECEIPTS_KEY_TITLE,

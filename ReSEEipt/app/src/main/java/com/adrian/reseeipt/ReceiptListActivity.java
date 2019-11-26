@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.adrian.reseeipt.Adapters.SingleReceiptViewAdapter;
+import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
 import com.adrian.reseeipt.Model.Receipt;
@@ -26,6 +27,11 @@ public class ReceiptListActivity extends AppCompatActivity {
     public static final int REQUEST_ADD_RECEIPT = 10;
     public static final int RESULT_SAVED = 11;
     public static final int RESULT_CANCELLED = 12;
+
+    public static final int REQUEST_VIEW_RECEIPT = 13;
+    public static final int RESULT_VIEW_SAVED = 14;
+    public static final int RESULT_VIEW_BACKED = 15;
+    public static final int RESULT_VIEW_DELETED = 16;
 
     private LinearLayout addReceiptButton;
     private LinearLayout backToDashboardButton;
@@ -104,18 +110,27 @@ public class ReceiptListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String query = searchQueryEditText.getText().toString();
-                adapter.searchQuery(query);
-                searchQueryEditText.setText(query);
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceiptByQuery(query);
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByQueryCategory(query, category);
+                }
                 setResultCount();
+                adapter.setItemList(receiptList);
             }
         });
 
         cancelSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.clearQuery();
-                searchQueryEditText.setText("");
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceipt();
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                }
                 setResultCount();
+                searchQueryEditText.setText("");
+                adapter.setItemList(receiptList);
             }
         });
 
@@ -150,17 +165,36 @@ public class ReceiptListActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELLED) {
 
             }
+        } else if (requestCode == REQUEST_VIEW_RECEIPT){
+            if (resultCode== RESULT_VIEW_BACKED){
+
+            } else if (resultCode == RESULT_VIEW_DELETED){
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceipt();
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                }
+                setResultCount();
+                adapter.setItemList(receiptList);
+            }
         }
     }
 
     private void setResultCount(){
-        int count = adapter.getItemCount();
-        System.out.println(count);
+        int count = receiptList.size();
         if (count == 1){
             resultsCountText.setText(count + " Receipt Found");
         } else {
             resultsCountText.setText(count + " Receipts Found");
         }
+    }
+
+    public void openViewDetails(View view){
+        int id = (int) view.getTag();
+
+        Intent intent = new Intent (this, EditReceiptActivity.class);
+        intent.putExtra(IntentConstants.INTNT_CURRENT_RECEIPT_VIEW, id);
+        startActivityForResult(intent, REQUEST_VIEW_RECEIPT);
     }
 
 

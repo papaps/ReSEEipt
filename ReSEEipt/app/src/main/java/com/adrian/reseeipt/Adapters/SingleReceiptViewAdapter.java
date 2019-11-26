@@ -22,16 +22,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceiptViewAdapter.SingleReceiptViewHolder> implements Filterable {
+public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceiptViewAdapter.SingleReceiptViewHolder> {
 
     private Context context;
     private List<Receipt> itemList = new ArrayList<>();
-    private List<Receipt> itemListOld = new ArrayList<>();
 
     public SingleReceiptViewAdapter(Context context, List<Receipt> itemList) {
         this.context = context;
         this.itemList = itemList;
-        itemListOld = itemList;
     }
 
     @NonNull
@@ -46,6 +44,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
     public void onBindViewHolder(@NonNull SingleReceiptViewAdapter.SingleReceiptViewHolder holder, int position) {
         Receipt receipt = itemList.get(position);
         holder.individualReceiptOneTitle.setText(receipt.getTitle());
+        holder.setHolderQuizID(receipt.getReceiptID());
         holder.individualReceiptOneImage.setImageBitmap(DatabaseUtil.loadImageFromStorage(receipt.getImages().get(0).getImagePath()));
         if (receipt.getImages().size() == 1){
             holder.multipleImagesIcon.setVisibility(View.GONE);
@@ -59,54 +58,9 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
 
     public void setItemList(List<Receipt> itemList) {
         this.itemList = itemList;
-        itemListOld = itemList;
         notifyDataSetChanged();
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    itemList = itemListOld;
-                } else {
-                    List<Receipt> filteredList = new ArrayList<>();
-                    for (Receipt row : itemListOld) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getTitle().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(row);
-                        }
-                    }
-
-                   itemList = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = itemList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                itemList = (ArrayList<Receipt>) filterResults.values;
-                System.out.println(itemList.size());
-                // refresh the list with filtered data
-                notifyDataSetChanged();
-            }
-        };
-    }
-
-    public void searchQuery(String query){
-        getFilter().filter(query);
-    }
-
-    public void clearQuery(){
-        getFilter().filter("");
-    }
 
     public List<Receipt> getItemList() {
         return itemList;
@@ -135,6 +89,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
         notifyDataSetChanged();
     }
 
+
     public class SingleReceiptViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView individualReceiptOneTitle;
@@ -147,6 +102,10 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
             individualReceiptOneTitle = itemView.findViewById(R.id.individualReceiptOneTitle);
             individualReceiptOneImage = itemView.findViewById(R.id.individualReceiptOneImage);
             multipleImagesIcon = itemView.findViewById(R.id.multipleImagesIcon);
+        }
+
+        public void setHolderQuizID(int id){
+            itemView.setTag(id);
         }
     }
 }
