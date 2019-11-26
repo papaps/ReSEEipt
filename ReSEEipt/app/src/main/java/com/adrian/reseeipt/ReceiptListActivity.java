@@ -29,6 +29,9 @@ public class ReceiptListActivity extends AppCompatActivity {
     private LinearLayout backToDashboardButton;
     private TextView receiptCategoryText;
     private TextView resultsCountText;
+    private EditText searchQueryEditText;
+    private LinearLayout searchButton;
+    private LinearLayout cancelSearchButton;
 
     Intent intent;
 
@@ -47,6 +50,9 @@ public class ReceiptListActivity extends AppCompatActivity {
         backToDashboardButton = findViewById(R.id.backToDashboardButton);
         receiptCategoryText = findViewById(R.id.receiptCategoryText);
         resultsCountText = findViewById(R.id.resultsCountText);
+        searchQueryEditText = findViewById(R.id.searchQueryEditText);
+        searchButton = findViewById(R.id.searchButton);
+        cancelSearchButton = findViewById(R.id.cancelSearchButton);
         databaseHandler = new DatabaseHandler(this);
 
         intent = getIntent();
@@ -62,13 +68,14 @@ public class ReceiptListActivity extends AppCompatActivity {
             receiptList = databaseHandler.getAllReceiptByCategory(category);
         }
 
-        setResultCount();
+
 
         recyclerView = findViewById(R.id.receiptListRecyclerView);
         adapter = new SingleReceiptViewAdapter(this, receiptList);
         recyclerView.setAdapter(adapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
+        setResultCount();
 
 
         backToDashboardButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +93,25 @@ public class ReceiptListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ReceiptListActivity.this, AddReceiptActivity.class);
                 startActivityForResult(intent, REQUEST_ADD_RECEIPT);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = searchQueryEditText.getText().toString();
+                adapter.searchQuery(query);
+                searchQueryEditText.setText(query);
+                setResultCount();
+            }
+        });
+
+        cancelSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.clearQuery();
+                searchQueryEditText.setText("");
+                setResultCount();
             }
         });
     }
@@ -112,11 +138,14 @@ public class ReceiptListActivity extends AppCompatActivity {
     }
 
     private void setResultCount(){
-        int count = receiptList.size();
+        int count = adapter.getItemCount();
+        System.out.println(count);
         if (count == 1){
             resultsCountText.setText(count + " Receipt Found");
         } else {
             resultsCountText.setText(count + " Receipts Found");
         }
     }
+
+
 }
