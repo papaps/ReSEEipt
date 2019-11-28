@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         if (passwordLoginField.getText().toString().isEmpty()){
             answer = "Please Input Your Password";
         } else if (!passwordLoginField.getText().toString().equals(user.getPassword())){
-            answer = "Passwords is Incorrect";
+            answer = "Password is Incorrect";
         }
 
         return answer;
