@@ -49,6 +49,10 @@ public class RegisterFirstActivity extends AppCompatActivity {
                     finish();
                 } else {
                     registerFirstErrorText.setText(errorMessage);
+                    if(errorMessage.equals("Passwords Do Not Match")){
+                        passwordField.setText("");
+                        confirmPasswordField.setText("");
+                    }
                 }
             }
         });

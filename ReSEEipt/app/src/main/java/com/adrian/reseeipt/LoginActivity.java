@@ -63,7 +63,17 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 } else {
                     loginErrorText.setText(errorMessage);
+                    passwordLoginField.setText("");
                 }
+            }
+        });
+
+        forgotPasswordText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(newIntent);
+                finish();
             }
         });
     }
@@ -75,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         if (passwordLoginField.getText().toString().isEmpty()){
             answer = "Please Input Your Password";
         } else if (!passwordLoginField.getText().toString().equals(user.getPassword())){
-            answer = "Passwords is Incorrect";
+            answer = "Password is Incorrect";
         }
 
         return answer;
