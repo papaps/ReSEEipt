@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adrian.reseeipt.Constants.SharedPrefConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
@@ -66,7 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 databaseHandler.deleteUser(user);
-                getSharedPreferences(SharedPrefConstants.PREF_USER_ID, 0).edit().clear().commit();
+                sharedPreferences.edit().remove(SharedPrefConstants.PREF_USER_ID).commit();
+                Toast toast = Toast.makeText(getApplicationContext(),"Account Deleted",Toast. LENGTH_SHORT);
+                toast.show();
                 Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(newIntent);
                 finish();
