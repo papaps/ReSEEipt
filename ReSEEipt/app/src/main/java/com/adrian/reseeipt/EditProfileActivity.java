@@ -14,13 +14,12 @@ import android.widget.TextView;
 import com.adrian.reseeipt.Constants.SharedPrefConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
 import com.adrian.reseeipt.Model.User;
-import com.bumptech.glide.disklrucache.DiskLruCache;
 
 public class EditProfileActivity extends AppCompatActivity {
 
     EditText FirstNameField, LastNameField;
     TextView messageField;
-    Button EditCancelButton, DeleteConfirmButton;
+    Button EditCancelButton, EditConfirmButton;
 
     SharedPreferences sharedPreferences;
     private DatabaseHandler databaseHandler;
@@ -35,7 +34,7 @@ public class EditProfileActivity extends AppCompatActivity {
         LastNameField = findViewById(R.id.LastNameField);
         messageField = findViewById(R.id.messageField);
         EditCancelButton = findViewById(R.id.EditCancelButton);
-        DeleteConfirmButton = findViewById(R.id.DeleteConfirmButton);
+        EditConfirmButton = findViewById(R.id.EditConfirmButton);
 
         databaseHandler = new DatabaseHandler(this);
         sharedPreferences = getSharedPreferences(SharedPrefConstants.APP_PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -43,6 +42,9 @@ public class EditProfileActivity extends AppCompatActivity {
         // Get Stored User ID
         int user_id = sharedPreferences.getInt(SharedPrefConstants.PREF_USER_ID, 1);
         user = databaseHandler.getUser(user_id);
+
+        FirstNameField.setText(user.getFirstName());
+        LastNameField.setText(user.getLastName());
 
         EditCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +55,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        DeleteConfirmButton.setOnClickListener(new View.OnClickListener() {
+        EditConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String errorMessage = validateFields();
@@ -76,7 +78,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (FirstNameField.getText().toString().matches("")){
             answer = "Please Input Your First Name";
-        } else if (!LastNameField.getText().toString().matches("")){
+        } else if (LastNameField.getText().toString().matches("")){
             answer = "Please Input Your Last Name";
         }
 
