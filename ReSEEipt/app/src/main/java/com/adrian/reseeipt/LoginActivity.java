@@ -66,6 +66,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        forgotPasswordText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(newIntent);
+                finish();
+            }
+        });
     }
 
     private String validateFields(){

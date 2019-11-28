@@ -170,7 +170,7 @@
                 android:clickable="false" />
 
             <Button
-                android:id="@+id/EditAcctButton"
+                android:id="@+id/ForgotCancelButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
@@ -201,7 +201,7 @@
                 android:clickable="false" />
 
             <Button
-                android:id="@+id/DeleteAcctButton"
+                android:id="@+id/ForgotConfirmButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
