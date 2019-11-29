@@ -2,6 +2,8 @@ package com.adrian.reseeipt;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +16,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Adapters.ViewingImageAdapter;
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
+import com.adrian.reseeipt.Database.DatabaseUtil;
 import com.adrian.reseeipt.Model.Receipt;
+import com.adrian.reseeipt.Model.ReceiptImage;
 
 public class EditReceiptActivity extends AppCompatActivity {
 
@@ -31,6 +36,8 @@ public class EditReceiptActivity extends AppCompatActivity {
     ArrayAdapter<String> ARRadapter;
     DatabaseHandler databaseHandler;
     Receipt receipt;
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,16 @@ public class EditReceiptActivity extends AppCompatActivity {
         editReceiptTitleEditText.setText(receipt.getTitle());
         editReceiptNotesEditText.setText(receipt.getNotes());
         editReceiptCategorySpinner.setSelection(ARRadapter.getPosition(receipt.getCategories()));
+
+        recyclerView = findViewById(R.id.viewImageRecyclerView);
+        ViewingImageAdapter adapter = new ViewingImageAdapter(this);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        for (ReceiptImage ri: receipt.getImages()){
+            adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(ri.getImagePath())));
+        }
 
         //On Clicks Switching View
 
@@ -158,8 +175,23 @@ public class EditReceiptActivity extends AppCompatActivity {
         editReceiptSaveButton.setVisibility(View.GONE);
 
         // Revert unnecessary changes
+        resetReceiptDetails();
+    }
+
+    private void resetReceiptDetails(){
+        int id = receipt.getReceiptID();
+        receipt = databaseHandler.getReceipt(id);
+        ViewingImageAdapter adapter = new ViewingImageAdapter(this);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
         editReceiptTitleEditText.setText(receipt.getTitle());
         editReceiptNotesEditText.setText(receipt.getNotes());
         editReceiptCategorySpinner.setSelection(ARRadapter.getPosition(receipt.getCategories()));
+
+        for (ReceiptImage ri: receipt.getImages()){
+            adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(ri.getImagePath())));
+        }
     }
 }
