@@ -164,9 +164,6 @@ public class AddReceiptActivity extends AppCompatActivity {
                         startActivityForResult(intent, REQUEST_CAMERA);
                     }
 
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(intent, REQUEST_CAMERA);
-
                 } else if (items[i].equals("Gallery")) {
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -179,21 +176,13 @@ public class AddReceiptActivity extends AppCompatActivity {
                             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                             intent.setType("image/*");
                             startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                            //startActivityForResult(intent, SELECT_FILE);
                         }
                     } else {
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                         intent.setType("image/*");
                         startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                        //startActivityForResult(intent, SELECT_FILE);
                     }
-
-//                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                    intent.setType("image/*");
-                    //startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                    //startActivityForResult(intent, SELECT_FILE);
 
                 } else if (items[i].equals("Cancel")) {
                     dialogInterface.dismiss();

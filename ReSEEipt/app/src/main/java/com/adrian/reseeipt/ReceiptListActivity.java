@@ -153,26 +153,36 @@ public class ReceiptListActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_ADD_RECEIPT){
             if (resultCode == RESULT_SAVED){
+                String query = searchQueryEditText.getText().toString();
                 if (category.equals(ReceiptCategoryConstants.ALL)){
-                    receiptList = databaseHandler.getAllReceipt();
-                    adapter.setItemList(receiptList);
+                    receiptList = databaseHandler.getAllReceiptByQuery(query);
                 } else {
-                    receiptList = databaseHandler.getAllReceiptByCategory(category);
-                    adapter.setItemList(receiptList);
+                    receiptList = databaseHandler.getAllReceiptByQueryCategory(query, category);
                 }
-
                 setResultCount();
+                adapter.setItemList(receiptList);
             } else if (resultCode == RESULT_CANCELLED) {
 
             }
         } else if (requestCode == REQUEST_VIEW_RECEIPT){
             if (resultCode== RESULT_VIEW_BACKED){
-
-            } else if (resultCode == RESULT_VIEW_DELETED){
+                String query = searchQueryEditText.getText().toString();
                 if (category.equals(ReceiptCategoryConstants.ALL)){
-                    receiptList = databaseHandler.getAllReceipt();
+                    receiptList = databaseHandler.getAllReceiptByQuery(query);
                 } else {
-                    receiptList = databaseHandler.getAllReceiptByCategory(category);
+                    receiptList = databaseHandler.getAllReceiptByQueryCategory(query, category);
+                }
+                setResultCount();
+                adapter = new SingleReceiptViewAdapter(ReceiptListActivity.this, receiptList);
+                recyclerView.setAdapter(adapter);
+                GridLayoutManager layoutManager = new GridLayoutManager(ReceiptListActivity.this, 2);
+                recyclerView.setLayoutManager(layoutManager);
+            } else if (resultCode == RESULT_VIEW_DELETED){
+                String query = searchQueryEditText.getText().toString();
+                if (category.equals(ReceiptCategoryConstants.ALL)){
+                    receiptList = databaseHandler.getAllReceiptByQuery(query);
+                } else {
+                    receiptList = databaseHandler.getAllReceiptByQueryCategory(query, category);
                 }
                 setResultCount();
                 adapter.setItemList(receiptList);

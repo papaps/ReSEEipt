@@ -5,8 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.adrian.reseeipt.Adapters.EditingImageAdapter;
 import com.adrian.reseeipt.Adapters.ViewingImageAdapter;
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
@@ -23,6 +32,9 @@ import com.adrian.reseeipt.Database.DatabaseHandler;
 import com.adrian.reseeipt.Database.DatabaseUtil;
 import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class EditReceiptActivity extends AppCompatActivity {
 
@@ -36,8 +48,11 @@ public class EditReceiptActivity extends AppCompatActivity {
     ArrayAdapter<String> ARRadapter;
     DatabaseHandler databaseHandler;
     Receipt receipt;
+    EditingImageAdapter editorAdapter;
 
     RecyclerView recyclerView;
+    private static final int REQUEST_CAMERA = 20;
+    private static final int SELECT_FILE = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +158,41 @@ public class EditReceiptActivity extends AppCompatActivity {
                 });
             }
         });
+
+        editReceiptAddImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
+        editReceiptSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String errorMessage = validateFields();
+                if (errorMessage.equals("Okay")){
+                    editReceiptErrorText.setText("");
+
+                    receipt.setCategories(editReceiptCategorySpinner.getSelectedItem().toString());
+                    receipt.setNotes(editReceiptNotesEditText.getText().toString());
+                    receipt.setTitle(editReceiptTitleEditText.getText().toString());
+
+                    databaseHandler.updateReceipt(receipt);
+                    int id = receipt.getReceiptID();
+                    databaseHandler.deleteAllImageOfReceipt(id);
+                    ArrayList<byte[]> riList = editorAdapter.getFinalImages();
+
+                    for (byte[] bts: riList){
+                        String path = DatabaseUtil.saveToInternalStorage(DatabaseUtil.getImage(bts), getApplicationContext());
+                        ReceiptImage ri = new ReceiptImage(id, path);
+                        databaseHandler.addImage(ri);
+                    }
+                    switchToViewViewCancel();
+                } else {
+                    editReceiptErrorText.setText(errorMessage);
+                }
+            }
+        });
     }
 
     private void switchToEditView(){
@@ -158,6 +208,14 @@ public class EditReceiptActivity extends AppCompatActivity {
         editReceiptDeleteButton.setVisibility(View.GONE);
         editReceiptCancelButton.setVisibility(View.VISIBLE);
         editReceiptSaveButton.setVisibility(View.VISIBLE);
+        editorAdapter = new EditingImageAdapter(this);
+        recyclerView.setAdapter(editorAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        for (ReceiptImage ri: receipt.getImages()){
+            editorAdapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(ri.getImagePath())));
+        }
     }
 
     private void switchToViewViewCancel(){
@@ -193,5 +251,136 @@ public class EditReceiptActivity extends AppCompatActivity {
         for (ReceiptImage ri: receipt.getImages()){
             adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(ri.getImagePath())));
         }
+    }
+
+    private void selectImage(){
+        final CharSequence[] items={"Camera","Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditReceiptActivity.this);
+        builder.setTitle("Add Image");
+
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (items[i].equals("Camera")) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                    REQUEST_CAMERA);
+                        } else {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, REQUEST_CAMERA);
+                        }
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CAMERA);
+                    }
+                } else if (items[i].equals("Gallery")) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    SELECT_FILE);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            intent.setType("image/*");
+                            startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+                        }
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        intent.setType("image/*");
+                        startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+                    }
+                } else if (items[i].equals("Cancel")) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public  void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode,data);
+
+        if(resultCode== Activity.RESULT_OK){
+
+            if(requestCode==REQUEST_CAMERA){
+
+                Bundle bundle = data.getExtras();
+                final Bitmap bmp = (Bitmap) bundle.get("data");
+                editorAdapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
+
+            }else if(requestCode==SELECT_FILE){
+                //https://stackoverflow.com/questions/19585815/select-multiple-images-from-android-gallery
+
+                ArrayList<Uri> uriList = new ArrayList<>();
+
+                if(data.getClipData() != null){
+
+                    int count = data.getClipData().getItemCount();
+                    for (int i=0; i<count; i++){
+
+                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        uriList.add(imageUri);
+                    }
+
+                    try {
+                        editorAdapter.addMultipleImages(getImages(uriList));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(data.getData() != null){
+
+                    Uri imgUri = data.getData();
+
+                    try {
+                        final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
+                        editorAdapter.addAnotherImage(DatabaseUtil.getBytes(bitmap));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+    }
+
+    public ArrayList<byte[]> getImages(ArrayList<Uri> imageURIs) throws Exception {
+        ArrayList<byte[]> images = new ArrayList<>();
+        Bitmap bmp = null;
+
+        for(int i = 0; i < imageURIs.size(); i++){
+            Uri uri = imageURIs.get(i);
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                images.add(DatabaseUtil.getBytes(bmp));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return images;
+    }
+
+    private String validateFields(){
+        String answer = "Okay";
+
+
+        if (editReceiptTitleEditText.getText().toString().isEmpty() && editorAdapter.containsPlaceholder()){
+            answer = "Missing Fields. At least one (1) image needed.";
+        } else if (editReceiptTitleEditText.getText().toString().isEmpty()){
+            answer = "Missing Fields";
+        } else if (editorAdapter.containsPlaceholder()){
+            answer = "At least one (1) image needed";
+        }
+
+        return answer;
     }
 }
