@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.adrian.reseeipt.Adapters.AddingImageAdapter;
+import com.adrian.reseeipt.Adapters.StartSnapHelper;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
 import com.adrian.reseeipt.Constants.SecurityQuestionsConstants;
 import com.adrian.reseeipt.Database.DatabaseHandler;
@@ -33,6 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.provider.MediaStore;
 import android.view.View;
@@ -85,6 +87,8 @@ public class AddReceiptActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        SnapHelper startSnapHelper = new StartSnapHelper();
+        startSnapHelper.attachToRecyclerView(recyclerView);
 
         databaseHandler = new DatabaseHandler(this);
 

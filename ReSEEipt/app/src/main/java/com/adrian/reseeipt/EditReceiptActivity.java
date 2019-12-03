@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.Manifest;
 import android.app.Activity;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.adrian.reseeipt.Adapters.EditingImageAdapter;
+import com.adrian.reseeipt.Adapters.StartSnapHelper;
 import com.adrian.reseeipt.Adapters.ViewingImageAdapter;
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Constants.ReceiptCategoryConstants;
@@ -93,6 +95,8 @@ public class EditReceiptActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        SnapHelper startSnapHelper = new StartSnapHelper();
+        startSnapHelper.attachToRecyclerView(recyclerView);
 
         for (ReceiptImage ri: receipt.getImages()){
             adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(ri.getImagePath())));
