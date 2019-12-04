@@ -65,7 +65,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/all_receipts_asset_min"
+                app:srcCompat="@drawable/all_receipts_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/meal_asset_min"
+                app:srcCompat="@drawable/meal_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -129,7 +129,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/grocery_asset_min"
+                app:srcCompat="@drawable/grocery_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -157,7 +157,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/shopping_asset_min"
+                app:srcCompat="@drawable/shopping_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -192,7 +192,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/utilities_asset_min"
+                app:srcCompat="@drawable/utilities_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -220,7 +220,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/appliance_asset_min"
+                app:srcCompat="@drawable/appliance_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -255,7 +255,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/gadget_asset_min"
+                app:srcCompat="@drawable/gadget_asset_blue"
                 android:clickable="false"/>
 
             <TextView
@@ -283,7 +283,7 @@
                 android:layout_height="153dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/others_asset_min"
+                app:srcCompat="@drawable/others_asset_blue"
                 android:clickable="false"/>
 
             <TextView
