@@ -45,258 +45,535 @@
         android:orientation="vertical"
         android:weightSum="3">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="193dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardAllButton">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/AllView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/all_receipts_asset_blue"
-                android:clickable="false"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardAllButton">
 
-            <TextView
-                android:id="@+id/AllText"
-                android:fontFamily="@font/roboto"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="25dp"
+                        app:cardMaxElevation="1dp"
+                        app:cardElevation="0.7dp"
+                        app:cardCornerRadius="3dp">
+                        <ImageView
+                            android:id="@+id/AllViewLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/all_receipts_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/AllViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="3dp">
+                        <ImageView
+                            android:id="@+id/AllViewMini"
+                            android:padding="5dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/all_receipts_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/AllText"
+                    android:fontFamily="@font/roboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="All Receipts"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:clickable="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardMealButton">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="25dp"
+                    app:cardMaxElevation="1dp"
+                    app:cardElevation="0.7dp"
+                    app:cardCornerRadius="3dp">
+
+                <ImageView
+                    android:id="@+id/MealsViewLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/meal_asset_blue"
+                    android:clickable="false"/>
+                </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/MealsViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="3dp">
+                        <ImageView
+                            android:id="@+id/MealsViewMini"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/meal_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/MealsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Meals"
+                    android:scaleType="fitCenter"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:clickable="false"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="All Receipts"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:clickable="false"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:id="@+id/dashboardGroceryButton">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="25dp"
+                            app:cardMaxElevation="1dp"
+                            app:cardElevation="0.7dp"
+                            app:cardCornerRadius="3dp">
+                            <ImageView
+                                android:id="@+id/GroceryViewLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="130dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/grocery_asset_blue"
+                                android:clickable="false"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/GroceryViewMiniContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="3dp">
+                            <ImageView
+                                android:id="@+id/GroceryViewMini"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:padding="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/grocery_asset_blue"
+                                android:clickable="false"/>
+                        </androidx.cardview.widget.CardView>
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/GroceryText"
+                        android:fontFamily="@font/roboto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Groceries"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:clickable="false"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:id="@+id/dashboardShoppingButton">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="25dp"
+                            app:cardMaxElevation="1dp"
+                            app:cardElevation="0.7dp"
+                            app:cardCornerRadius="3dp">
+
+                            <ImageView
+                                android:id="@+id/ShoppingViewLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="130dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/shopping_asset_blue"
+                                android:clickable="false"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/ShoppingViewMiniContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="3dp">
+                            <ImageView
+                                android:id="@+id/ShoppingViewMini"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:padding="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/shopping_asset_blue"
+                                android:clickable="false"/>
+                        </androidx.cardview.widget.CardView>
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/ShoppingText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shopping"
+                        android:scaleType="fitCenter"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:clickable="false"/>
+                </LinearLayout>
+            </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardMealButton">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/MealsView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/meal_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/MealsText"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Meals"
-                android:scaleType="fitCenter"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardUtilitiesButton">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="25dp"
+                        app:cardMaxElevation="1dp"
+                        app:cardElevation="0.7dp"
+                        app:cardCornerRadius="3dp">
+                        <ImageView
+                            android:id="@+id/UtilitiesViewLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/utilities_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/UtilitiesViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="3dp">
+                        <ImageView
+                            android:id="@+id/UtilitiesViewMini"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/utilities_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/UtilitiesText"
+                    android:fontFamily="@font/roboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Utilities"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:clickable="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardAppliancesButton">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="25dp"
+                        app:cardMaxElevation="1dp"
+                        app:cardElevation="0.7dp"
+                        app:cardCornerRadius="3dp">
+
+                        <ImageView
+                            android:id="@+id/AppliancesViewLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/appliance_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/AppliancesViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="5dp">
+                        <ImageView
+                            android:id="@+id/AppliancesViewMini"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/appliance_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/AppliancesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Appliances"
+                    android:scaleType="fitCenter"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:clickable="false"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="193dp"
-        android:orientation="horizontal"
-        android:layout_weight="2">
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardGroceryButton">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/GroceryView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/grocery_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/GroceryText"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Grocery"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardGadgetsButton">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="25dp"
+                        app:cardMaxElevation="1dp"
+                        app:cardElevation="0.7dp"
+                        app:cardCornerRadius="3dp">
+                        <ImageView
+                            android:id="@+id/GadgetsViewLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/gadget_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/GadgetsViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="5dp">
+                        <ImageView
+                            android:id="@+id/GadgetsViewMini"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/gadget_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/GadgetsText"
+                    android:fontFamily="@font/roboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gadgets"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:clickable="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/dashboardOthersButton">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="25dp"
+                        app:cardMaxElevation="1dp"
+                        app:cardElevation="0.7dp"
+                        app:cardCornerRadius="3dp">
+
+                        <ImageView
+                            android:id="@+id/OthersViewLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/others_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/OthersViewMiniContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="5dp">
+                        <ImageView
+                            android:id="@+id/OthersViewMini"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/others_asset_blue"
+                            android:clickable="false"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/OthersText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Others"
+                    android:scaleType="fitCenter"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto"
+                    android:clickable="false"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardShoppingButton">
-
-            <ImageView
-                android:id="@+id/ShoppingView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/shopping_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/ShoppingText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Shopping"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="193dp"
-        android:orientation="horizontal"
-        android:layout_weight="2">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardUtilitiesButton">
-
-            <ImageView
-                android:id="@+id/UtilitiesView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/utilities_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/UtilitiesText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Utilities"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardAppliancesButton">
-
-            <ImageView
-                android:id="@+id/AppliancesView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/appliance_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/AppliancesText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Appliances"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="193dp"
-        android:orientation="horizontal"
-        android:layout_weight="2">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardGadgetsButton">
-
-            <ImageView
-                android:id="@+id/GadgetsView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/gadget_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/GadgetsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Gadgets"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/dashboardOthersButton">
-
-            <ImageView
-                android:id="@+id/OthersView"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/others_asset_blue"
-                android:clickable="false"/>
-
-            <TextView
-                android:id="@+id/OthersText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Others"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:clickable="false"/>
-        </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
     </ScrollView>
 
