@@ -2,6 +2,7 @@ package com.adrian.reseeipt.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adrian.reseeipt.ClickImageActivity;
+import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Database.DatabaseUtil;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
@@ -101,6 +104,17 @@ public class EditingImageAdapter extends RecyclerView.Adapter<EditingImageAdapte
                         itemList.add(placeholder);
                         notifyItemInserted(0);
                     }
+                }
+            });
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int imageIndex = getAdapterPosition();
+                    Intent intent = new Intent(context, ClickImageActivity.class);
+                    String path = DatabaseUtil.saveToInternalStorage(DatabaseUtil.getImage(itemList.get(imageIndex)), context);
+                    intent.putExtra(IntentConstants.INTNT_VIEWIMAGE, path);
+                    context.startActivity(intent);
                 }
             });
         }
