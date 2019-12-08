@@ -2,6 +2,7 @@ package com.adrian.reseeipt;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -63,6 +64,9 @@ public class AddReceiptActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AddingImageAdapter adapter;
     DatabaseHandler databaseHandler;
+
+    ContentValues values;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,11 +164,23 @@ public class AddReceiptActivity extends AppCompatActivity {
                             requestPermissions(new String[]{Manifest.permission.CAMERA},
                                     REQUEST_CAMERA);
                         } else {
+                            values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                            imageUri = getContentResolver().insert(
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
                     } else {
+                        values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                        imageUri = getContentResolver().insert(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
                     }
 
@@ -232,9 +248,17 @@ public class AddReceiptActivity extends AppCompatActivity {
 
             if(requestCode==REQUEST_CAMERA){
 
-                Bundle bundle = data.getExtras();
-                final Bitmap bmp = (Bitmap) bundle.get("data");
-                adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
+                final Bitmap bmp;
+                try {
+                    bmp = MediaStore.Images.Media.getBitmap(
+                            getContentResolver(), imageUri);
+
+                    String imageURL = getRealPathFromURI(imageUri);
+                    adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(imageURL)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
             }else if(requestCode==SELECT_FILE){
 // Get the Image from data
@@ -283,6 +307,15 @@ public class AddReceiptActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     public ArrayList<byte[]> getImages(ArrayList<Uri> imageURIs) throws Exception {

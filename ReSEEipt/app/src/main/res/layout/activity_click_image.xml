@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="25dp"
+    xmlns:gesture-image="http://schemas.polites.com/android"
+    tools:context=".ClickImageActivity">
+
+    <com.polites.android.GestureImageView
+        android:id="@+id/imageToBeZoomed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/reseept_profile_blue_min"
+        gesture-image:min-scale="0.1"
+        gesture-image:max-scale="10.0"
+        gesture-image:strict="false"/>
+</LinearLayout>
