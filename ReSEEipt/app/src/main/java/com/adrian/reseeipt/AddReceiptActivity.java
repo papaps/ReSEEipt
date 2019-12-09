@@ -79,6 +79,13 @@ public class AddReceiptActivity extends AppCompatActivity {
         addReceiptSaveButton = findViewById(R.id.addReceiptSaveButton);
         addReceiptErrorText = findViewById(R.id.addReceiptErrorText);
 
+
+        values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
         addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
         addReceiptCategorySpinner = findViewById(R.id.addCategorySpinner);
         ArrayAdapter<String> ARRadapter = new ArrayAdapter<String>(this,
@@ -164,21 +171,11 @@ public class AddReceiptActivity extends AppCompatActivity {
                             requestPermissions(new String[]{Manifest.permission.CAMERA},
                                     REQUEST_CAMERA);
                         } else {
-                            values = new ContentValues();
-                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                            imageUri = getContentResolver().insert(
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
                     } else {
-                        values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                        imageUri = getContentResolver().insert(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
