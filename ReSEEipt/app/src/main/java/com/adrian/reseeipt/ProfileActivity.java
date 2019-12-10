@@ -1,12 +1,15 @@
 package com.adrian.reseeipt;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,13 +69,40 @@ public class ProfileActivity extends AppCompatActivity {
         delete_linearlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseHandler.deleteUser(user);
-                sharedPreferences.edit().remove(SharedPrefConstants.PREF_USER_ID).commit();
-                Toast toast = Toast.makeText(getApplicationContext(),"Account Deleted",Toast. LENGTH_SHORT);
-                toast.show();
-                Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
-                startActivity(newIntent);
-                finish();
+
+                AlertDialog.Builder builder;
+                LayoutInflater inflater;
+                final AlertDialog dialog;
+                builder = new AlertDialog.Builder(ProfileActivity.this);
+                inflater = LayoutInflater.from(getApplicationContext());
+                View view = inflater.inflate(R.layout.delete_account_confirm, null);
+
+                Button noButton = view.findViewById(R.id.deleteConfNo);
+                Button yesButton = view.findViewById(R.id.deleteConfYes);
+
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                yesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseHandler.deleteUser(user);
+                        sharedPreferences.edit().remove(SharedPrefConstants.PREF_USER_ID).commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),"Account Deleted",Toast. LENGTH_SHORT);
+                        toast.show();
+                        Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
+                        startActivity(newIntent);
+                        finish();
+                    }
+                });
+
+                noButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
