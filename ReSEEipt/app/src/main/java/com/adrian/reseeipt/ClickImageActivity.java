@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Database.DatabaseUtil;
+import com.bumptech.glide.Glide;
 import com.polites.android.GestureImageView;
 
 import java.io.File;
@@ -24,7 +25,12 @@ public class ClickImageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         imagePath = intent.getStringExtra(IntentConstants.INTNT_VIEWIMAGE);
 
-        gestureImageView.setImageBitmap(DatabaseUtil.loadImageFromStorage(imagePath));
+        Glide.with(this)
+                .asBitmap()
+                .load(new File(imagePath)) // Uri of the picture
+                .into(gestureImageView);
+
+        //gestureImageView.setImageBitmap(DatabaseUtil.loadImageFromStorage(imagePath));
     }
 
     @Override

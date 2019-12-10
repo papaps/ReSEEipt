@@ -168,24 +168,14 @@ public class AddReceiptActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (checkSelfPermission(Manifest.permission.CAMERA)
                                 != PackageManager.PERMISSION_GRANTED) {
-                            requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                    REQUEST_CAMERA);
+                                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                        REQUEST_CAMERA);
                         } else {
-                            values = new ContentValues();
-                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                            imageUri = getContentResolver().insert(
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
                     } else {
-                        values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                        imageUri = getContentResolver().insert(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
@@ -230,6 +220,7 @@ public class AddReceiptActivity extends AppCompatActivity {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, REQUEST_CAMERA);
 
             } else {
