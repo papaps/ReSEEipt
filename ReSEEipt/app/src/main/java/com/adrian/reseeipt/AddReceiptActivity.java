@@ -54,7 +54,7 @@ import java.util.Date;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
-    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0, REQUEST_EXTERNAL = 90;
     Button addReceiptAddImageButton;
     Spinner addReceiptCategorySpinner;
     EditText addReceiptTitleEditText, addReceiptNotesEditText;
@@ -80,11 +80,28 @@ public class AddReceiptActivity extends AppCompatActivity {
         addReceiptErrorText = findViewById(R.id.addReceiptErrorText);
 
 
-        values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "New Picture");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-        imageUri = getContentResolver().insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_EXTERNAL);
+            } else {
+                values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                imageUri = getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            }
+
+
+        } else {
+            values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, "New Picture");
+            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+            imageUri = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        }
+
+
 
         addReceiptAddImageButton = findViewById(R.id.addReceiptAddImageButton);
         addReceiptCategorySpinner = findViewById(R.id.addCategorySpinner);
@@ -175,6 +192,8 @@ public class AddReceiptActivity extends AppCompatActivity {
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
+
+
                     } else {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -235,6 +254,14 @@ public class AddReceiptActivity extends AppCompatActivity {
             intent.setType("image/*");
             startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
 //            startActivityForResult(intent, SELECT_FILE);
+        } else if (requestCode == REQUEST_EXTERNAL){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                imageUri = getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            }
         }
     }
 
