@@ -2,8 +2,11 @@ package com.adrian.reseeipt.Database;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import com.adrian.reseeipt.Constants.DatabaseConstants;
 
@@ -13,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 
 public class DatabaseUtil {

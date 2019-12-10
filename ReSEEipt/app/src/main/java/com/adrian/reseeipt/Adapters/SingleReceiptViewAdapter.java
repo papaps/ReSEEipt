@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adrian.reseeipt.Database.DatabaseUtil;
+import com.adrian.reseeipt.Model.MyAppGlideModule;
 import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
@@ -26,6 +27,7 @@ public class SingleReceiptViewAdapter extends RecyclerView.Adapter<SingleReceipt
 
     private Context context;
     private List<Receipt> itemList = new ArrayList<>();
+    MyAppGlideModule options;
 
     public SingleReceiptViewAdapter(Context context, List<Receipt> itemList) {
         this.context = context;

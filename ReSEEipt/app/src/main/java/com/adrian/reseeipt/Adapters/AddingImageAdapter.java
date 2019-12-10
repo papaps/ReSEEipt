@@ -15,9 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.adrian.reseeipt.ClickImageActivity;
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Database.DatabaseUtil;
+import com.adrian.reseeipt.Model.MyAppGlideModule;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,10 +48,16 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddingImageAdapter.AddingImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddingImageViewHolder holder, int position) {
+
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(holder.imageView.getMeasuredWidth(), holder.imageView.getMeasuredHeight()); // resize does not respect aspect ratio
+        
         Glide.with(context)
-                .asBitmap()
                 .load(itemList.get(position))
+                .apply(requestOptions)
                 .into(holder.imageView);
     }
 

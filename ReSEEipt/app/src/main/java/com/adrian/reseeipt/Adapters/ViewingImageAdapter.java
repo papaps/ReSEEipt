@@ -18,6 +18,9 @@ import com.adrian.reseeipt.Model.Receipt;
 import com.adrian.reseeipt.Model.ReceiptImage;
 import com.adrian.reseeipt.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,8 +47,14 @@ public class ViewingImageAdapter extends RecyclerView.Adapter<ViewingImageAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewingImageAdapter.ViewingImageViewHolder holder, int position) {
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(holder.imageView.getMeasuredWidth(), holder.imageView.getMeasuredHeight());
+
         Glide.with(context)
                 .asBitmap()
+                .apply(requestOptions)
                 .load(itemList.get(position))
                 .into(holder.imageView);
 

@@ -53,10 +53,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddReceiptActivity extends AppCompatActivity {
 
@@ -84,7 +90,6 @@ public class AddReceiptActivity extends AppCompatActivity {
         addReceiptCancelButton = findViewById(R.id.addReceiptCancelButton);
         addReceiptSaveButton = findViewById(R.id.addReceiptSaveButton);
         addReceiptErrorText = findViewById(R.id.addReceiptErrorText);
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -278,15 +283,39 @@ public class AddReceiptActivity extends AppCompatActivity {
         if(resultCode== Activity.RESULT_OK){
 
             if(requestCode==REQUEST_CAMERA){
-
+//VERSION 1
 //                Bundle bundle = data.getExtras();
 //                final Bitmap bmp = (Bitmap) bundle.get("data");
 //                adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
 
-                try {
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(
-                            getContentResolver(), imageUri);
-                    adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
+                try{
+                    //VERSION 2
+//                    final Bitmap bmp = MediaStore.Images.Media.getBitmap(
+//                            getContentResolver(), imageUri);
+//                    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();;
+//                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//                    adapter.addAnotherImage(bytes.toByteArray());
+//                    bytes.close();
+
+                    File file = new File(getRealPathFromURI(imageUri));
+
+                    FileInputStream fis = new FileInputStream(file);
+
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] buf = new byte[1024];
+                    try {
+                        for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                            bos.write(buf, 0, readNum);
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    adapter.addAnotherImage(bos.toByteArray());
+
+                    bos.flush();
+                    fis.close();
+                    bos.close();
+                    //adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -317,8 +346,26 @@ public class AddReceiptActivity extends AppCompatActivity {
                     Uri imgUri = data.getData();
 
                     try {
-                        final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
-                        adapter.addAnotherImage(DatabaseUtil.getBytes(bitmap));
+//                        final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
+//                        adapter.addAnotherImage(DatabaseUtil.getBytes(bitmap));
+                        File file = new File(getRealPathFromURI(imgUri));
+
+                        FileInputStream fis = new FileInputStream(file);
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        byte[] buf = new byte[1024];
+                        try {
+                            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                                bos.write(buf, 0, readNum);
+                            }
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        adapter.addAnotherImage(bos.toByteArray());
+
+                        bos.flush();
+                        fis.close();
+                        bos.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -356,8 +403,26 @@ public class AddReceiptActivity extends AppCompatActivity {
         for(int i = 0; i < imageURIs.size(); i++){
             Uri uri = imageURIs.get(i);
             try {
-                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                images.add(DatabaseUtil.getBytes(bmp));
+//                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+//                images.add(DatabaseUtil.getBytes(bmp));
+                File file = new File(getRealPathFromURI(uri));
+
+                FileInputStream fis = new FileInputStream(file);
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                try {
+                    for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                        bos.write(buf, 0, readNum);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                images.add(bos.toByteArray());
+
+                bos.flush();
+                fis.close();
+                bos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
