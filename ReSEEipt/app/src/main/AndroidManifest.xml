@@ -14,35 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ClickImageActivity"></activity>
-        <activity   android:name=".EditReceiptActivity"
-                    android:screenOrientation="portrait"></activity>
-        <activity   android:name=".ResetPasswordActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".ForgotPasswordActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".EditProfileActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".ProfileActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".ReceiptListActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".MainDashboardActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".CreatingAccountLoading"
-                    android:screenOrientation="portrait"/>
+        <activity android:name=".EditReceiptActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ReceiptListActivity" />
+        <activity android:name=".MainDashboardActivity" />
+        <activity android:name=".CreatingAccountLoading" />
         <activity
             android:name=".AddReceiptActivity"
             android:label="@string/title_activity_add_receipt"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity   android:name=".LoginActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".RegisterSecurityActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".RegisterFirstActivity"
-                    android:screenOrientation="portrait"/>
-        <activity   android:name=".MainActivity"
-                    android:screenOrientation="portrait">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterSecurityActivity" />
+        <activity android:name=".RegisterFirstActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
