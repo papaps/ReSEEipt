@@ -65,9 +65,6 @@ public class AddReceiptActivity extends AppCompatActivity {
     AddingImageAdapter adapter;
     DatabaseHandler databaseHandler;
 
-    ContentValues values;
-    Uri imageUri;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,23 +161,11 @@ public class AddReceiptActivity extends AppCompatActivity {
                             requestPermissions(new String[]{Manifest.permission.CAMERA},
                                     REQUEST_CAMERA);
                         } else {
-                            values = new ContentValues();
-                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                            imageUri = getContentResolver().insert(
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(intent, REQUEST_CAMERA);
                         }
                     } else {
-                        values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                        imageUri = getContentResolver().insert(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
                     }
 
@@ -248,16 +233,9 @@ public class AddReceiptActivity extends AppCompatActivity {
 
             if(requestCode==REQUEST_CAMERA){
 
-                final Bitmap bmp;
-                try {
-                    bmp = MediaStore.Images.Media.getBitmap(
-                            getContentResolver(), imageUri);
-
-                    String imageURL = getRealPathFromURI(imageUri);
-                    adapter.addAnotherImage(DatabaseUtil.getBytes(DatabaseUtil.loadImageFromStorage(imageURL)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Bundle bundle = data.getExtras();
+                final Bitmap bmp = (Bitmap) bundle.get("data");
+                adapter.addAnotherImage(DatabaseUtil.getBytes(bmp));
 
 
             }else if(requestCode==SELECT_FILE){
