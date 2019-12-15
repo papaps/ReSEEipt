@@ -2,8 +2,11 @@ package com.adrian.reseeipt.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,9 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,10 +128,28 @@ public class AddingImageAdapter extends RecyclerView.Adapter<AddingImageAdapter.
                 @Override
                 public void onClick(View v) {
                     int imageIndex = getAdapterPosition();
-                    Intent intent = new Intent(context, ClickImageActivity.class);
-                    String path = DatabaseUtil.saveToInternalStorage(DatabaseUtil.getImage(itemList.get(imageIndex)), context);
-                    intent.putExtra(IntentConstants.INTNT_VIEWIMAGE, path);
-                    context.startActivity(intent);
+//                    Intent intent = new Intent(context, ClickImageActivity.class);
+                    //String path = DatabaseUtil.saveToInternalStorage(DatabaseUtil.getImage(itemList.get(imageIndex)), context);
+//                    intent.putExtra(IntentConstants.INTNT_VIEWIMAGE, path);
+//                    context.startActivity(intent);
+                    Bitmap bmp = DatabaseUtil.getImage(itemList.get(imageIndex));
+                    try {
+                        //Write file
+                        String filename = "bitmap.png";
+                        FileOutputStream stream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                        //Cleanup
+                        stream.close();
+                        bmp.recycle();
+
+                        //Pop intent
+                        Intent in1 = new Intent(context, ClickImageActivity.class);
+                        in1.putExtra("image", filename);
+                        context.startActivity(in1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

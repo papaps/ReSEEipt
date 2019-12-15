@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.adrian.reseeipt.Constants.DatabaseConstants;
+import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,9 +24,24 @@ import java.util.Date;
 public class DatabaseUtil {
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//        return stream.toByteArray();
+
+        ByteArrayOutputStream stream = null;
+        try {
+            stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            return stream.toByteArray();
+        }finally {
+            if(stream != null){
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static byte[] getBytesJPEG(Bitmap bitmap) {
@@ -70,14 +87,20 @@ public class DatabaseUtil {
     public static Bitmap loadImageFromStorage(String path)
     {
         Bitmap b = null;
-        try {
-            File f=new File(path);
-            b = BitmapFactory.decodeStream(new FileInputStream(f));
+//        try {
+//            File f=new File(path);
+//            b = BitmapFactory.decodeStream(new FileInputStream(f));
+//
+//        }
+//        catch (FileNotFoundException e)
+//        {
+//            e.printStackTrace();
+//        }
 
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
+        File imgFile = new  File(path);
+
+        if(imgFile.exists()){
+            b = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
         }
 
         return b;
