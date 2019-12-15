@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.adrian.reseeipt.Constants.IntentConstants;
 import com.adrian.reseeipt.Database.DatabaseUtil;
@@ -22,6 +24,7 @@ public class ClickImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_click_image);
 
         GestureImageView gestureImageView = findViewById(R.id.imageToBeZoomed);
+        Button closeBtn = findViewById(R.id.closeButton);
         Intent intent = getIntent();
         imagePath = intent.getStringExtra(IntentConstants.INTNT_VIEWIMAGE);
 
@@ -31,12 +34,12 @@ public class ClickImageActivity extends AppCompatActivity {
                 .into(gestureImageView);
 
         //gestureImageView.setImageBitmap(DatabaseUtil.loadImageFromStorage(imagePath));
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        File file = new File(imagePath);
-        file.delete();
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
